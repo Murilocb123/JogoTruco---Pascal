@@ -1,4 +1,4 @@
-unit lista_string;
+unit lista;
 interface
   const listaMaxSize = 5000;
 
@@ -9,16 +9,16 @@ interface
       max: integer;
     end;
 
-  procedure mostrarLista(lista: tLista);
-  function removerDaLista(valor: string; var lista: tLista): integer;
+  procedure escreverLista(lista: tLista);
+  function removerValorDaLista(valor: string; var lista: tLista): integer;
   function removerDaListaPorPosicao(posicao: integer; var lista: tLista): string;
   procedure inserirNaLista(valor: string;var lista: tLista);
   procedure inicializarLista(var lista: tLista; tamanho: integer);
-  function recuperarValorLista(posicao: integer; var lista: tLista): string;
+  function recuperarValorListaPorPosicao(posicao: integer; var lista: tLista): string;
 
 implementation
   //Procedimentos
-  procedure mostrarLista(lista: tLista);
+  procedure escreverLista(lista: tLista);
     var i: integer;
     begin
       with lista do begin
@@ -29,6 +29,8 @@ implementation
           writeln('[', i, ']', ' - ', arr[i]);
       end;
     end;
+
+
 
   function pegarPosicaoParaInserir(valor: string;lista: tLista):integer;
     var posicaoInserir, i, achou:integer;
@@ -86,18 +88,18 @@ implementation
       end;
     end;
 
-  function removerDaLista(valor: string; var lista: tLista): integer;
+  function removerValorDaLista(valor: string; var lista: tLista): integer;
     var posicao:integer;
     begin
       with lista do begin
         posicao:= acharPosicaoNaLista(valor, lista);
         if (posicao = 0) then begin
           writeln('O valor ', valor, ' nao existe na lista!');
-          removerDaLista:= 0
+          removerValorDaLista:= 0
         end else begin
           removerEspacoLista(posicao, lista);
           dec(qtd);
-          removerDaLista:= 1;
+          removerValorDaLista:= 1;
         end;
       end;
     end;
@@ -114,14 +116,14 @@ implementation
         end;
       end;
     end;
-  function recuperarValorLista(posicao: integer; var lista: tLista): string;
+  function recuperarValorListaPorPosicao(posicao: integer; var lista: tLista): string;
     begin
       with lista do begin
         if ((posicao > 1) and (posicao > qtd)) then begin
           writeln('O valor na posicao: ', posicao, ' nao existe na lista!');
-          recuperarValorLista:= ''
+          recuperarValorListaPorPosicao:= ''
         end else begin;
-          recuperarValorLista:= arr[posicao]
+          recuperarValorListaPorPosicao:= arr[posicao]
         end;
       end;
     end;

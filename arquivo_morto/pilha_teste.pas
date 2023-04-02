@@ -22,10 +22,10 @@ begin
       end else if (op = 2) then begin
         writeln('Valor removido: ', removerDaPilha(pilha1));
       end else if (op = 3) then begin
-        mostrarPilha(pilha1);
+        escreverPilha(pilha1);
       end else if (op = 4) then begin
         read(valorInt);
-        writeln(recuperarValorPilhaPosicao(valorInt, pilha1))
+        writeln(recuperarValorPilhaPorPosicao(valorInt, pilha1))
       end else if (op = 5) then begin
         writeln(recuperarValorPilha(pilha1))
       end;

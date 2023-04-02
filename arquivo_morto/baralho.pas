@@ -1,7 +1,7 @@
 unit baralho;
 
 interface
-uses lista_string, pilha_string;
+uses lista, pilha_string;
 
 type tBaralho = record
   qtd: integer;

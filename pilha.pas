@@ -9,16 +9,16 @@ interface
       max: integer;
     end;
 
-  procedure mostrarPilha(pilha: tPilha);
+  procedure escreverPilha(pilha: tPilha);
   function removerDaPilha(var pilha: tPilha): string;
   function recuperarValorPilha(var pilha: tPilha): string;
-  function recuperarValorPilhaPosicao(posicao: integer; var pilha: tPilha): string;
+  function recuperarValorPilhaPorPosicao(posicao: integer; var pilha: tPilha): string;
   function inserirNaPilha(valor: string;var pilha: tPilha):integer;
   procedure inicializarPilha(var pilha: tPilha; tamanho: integer);
 
 implementation
   //Procedimentos
-  procedure mostrarPilha(pilha: tPilha);
+  procedure escreverPilha(pilha: tPilha);
     var i: integer;
     begin
       with pilha do begin
@@ -53,13 +53,13 @@ implementation
         end;
       end;
     end;
-  function recuperarValorPilhaPosicao(posicao: integer; var pilha: tPilha): string;
+  function recuperarValorPilhaPorPosicao(posicao: integer; var pilha: tPilha): string;
     begin
       with pilha do begin
         if ((posicao > 0) and (posicao <= qtd)) then begin
-          recuperarValorPilhaPosicao:= arr[posicao];
+          recuperarValorPilhaPorPosicao:= arr[posicao];
         end else begin
-          recuperarValorPilhaPosicao:= '';
+          recuperarValorPilhaPorPosicao:= '';
           writeln('Esta posicao nao existe na pilha')
         end;
       end;
