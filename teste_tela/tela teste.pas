@@ -1,8 +1,8 @@
 Program Pzim ;
 Uses
 Crt, 
-UnitElementosVisuais, {Possui funções para desenhar os retângulos, contornos, "janelas", "botões" entre outros} 
-UnitPaintZim; {Possui a função de carregar e desenhar o conteúdo de um arquivo .paintzim}
+UnitElementosVisuais, {Possui funï¿½ï¿½es para desenhar os retï¿½ngulos, contornos, "janelas", "botï¿½es" entre outros} 
+UnitPaintZim; {Possui a funï¿½ï¿½o de carregar e desenhar o conteï¿½do de um arquivo .paintzim}
 
 
 Const
@@ -39,7 +39,7 @@ ID_NULL = '\NULL';
 
 Function ArquivosDisponiveis : boolean;
 
-{TestaArquivo : Verifica se o arquivo é acessivel}
+{TestaArquivo : Verifica se o arquivo ï¿½ acessivel}
 Function ArquivoAcessivel (caminho : string) : boolean;
 Var
 arquivo : text;
@@ -121,7 +121,7 @@ End;
 
 Begin
   textbackground(2); clrscr;
-  if not (ArquivosDisponiveis) then
+  if not  (ArquivosDisponiveis) then
   begin
       DesenhaPainel(20,4,40,17,':(', true, false);
       textcolor(lightred); textbackground(7);
@@ -136,11 +136,10 @@ Begin
       gotoxy(27,17); write('No Pascalzim ',#130,' necess',#160,'rio');
       gotoxy(30,18); write('gerar o execut',#160,'vel.');
 
-      readkey;
       Exit;
 	end
 	else
-	DesenhaPainel(20,4,40,17,'Informações', true, false);
+	DesenhaPainel(20,4,40,17,'Informaï¿½ï¿½es', true, false);
   
   
 End.
