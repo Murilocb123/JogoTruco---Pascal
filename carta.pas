@@ -59,14 +59,21 @@ end;
 
 procedure carta_escrever(carta: tCarta);
 var nipe_descricao: array[1..4] of string;
+    tipo_descricao: string;
 begin
 
   nipe_descricao[4] := 'Paus';
   nipe_descricao[3] := 'Copas';
   nipe_descricao[2] := 'Espadas';
   nipe_descricao[1] := 'Moles';
+
+  if carta.tipo = 'N' then
+    tipo_descricao:= 'Normal'
+  else
+    tipo_descricao:= 'Coringa';
+
   with carta do
-    writeln('Poder: ', poder, '| Tipo: ', tipo, '| Num: ', num, '| Nipe: ', nipe_descricao[nipe])
+    writeln('[', poder, '] ',  num, ' de ', nipe_descricao[nipe], ' - ', tipo_descricao)
 end;
 
 End.

@@ -27,8 +27,10 @@ implementation
         writeln();
         writeln('Imprimindo pilha...');
         writeln('Quantidade: ', qtd);
-        for i:= 1 to qtd do
+        for i:= 1 to qtd do begin
+          write('Posicao: ', i, ' - ');
           carta_escrever(arr[i])
+        end;
       end;
     end;
 
