@@ -140,7 +140,13 @@ Begin
       Exit;
 	end
 	else
-	DesenhaPainel(20,4,40,17,'Informações', true, false);
+	{DesenhaPainel(PosicaoX, Posicaoy, Witdh, height, sombra, borda interna)}
+	DesenhaPainel(20,4,40,17,'Informações', false, true);
+	// DesenhaRentangulo(PosicaoX, Posicaoy, Witdh, height)
+//	DesenhaRetangulo('a', 10,10,21,16,5);
+//	DesenhaRetangulo('a', 40,10,21,16,5);
+//	DesenhaRetangulo('a', 80,10,21,16,5);
+	
   
   
 End.
