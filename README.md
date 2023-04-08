@@ -2,9 +2,17 @@
 Jogo de truco desenvolvido na materia de estrutura de dados
 
 
-![jogo](./jogo.png)
+- listagem de units referente ao baralho:
+```bash
+     ∟ baralho.pas
+     ∟ carta.pas 
+     ∟ lista_carta.pas
+     ∟ pilha_carta.pas
+``` 
 
 # Documentação das funcões - Jogo de truco
+
+
 
 ## Lista de Carta:
 ``` pascal
