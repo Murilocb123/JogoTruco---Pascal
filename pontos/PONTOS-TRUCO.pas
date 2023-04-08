@@ -8,29 +8,24 @@ end;
 
 var pontuacao: P_pontuacao;
 
+//FUNÇÃO VENCEDOR
+function vencedor(var pontuacao: P_pontuacao): string;
+begin
+    with pontuacao do begin  
+        if usuario >= 12 then
+				     vencedor:='USUARIO VENCENDOR'
+		    else if maquina >= 12 then
+							 vencedor:='MAQUINA VENCENDOR';  						      		
+    end;							
+end;
 //PROCEDIMENTO MOSTRAR PONTUAÇÂO SALVA NO REGISTRO
 procedure mostrarPontos(var pontuacao:P_pontuacao);
 begin
-  with  pontuacao  do begin
-  	if usuario >= 12 then
-  		begin
-  			writeln(' ');
-  			writeln('-----------------');
-				writeln('USUARIO VENCENDOR');
-  			writeln('-----------------');
-  		end
-		else if maquina >= 12 then
-		       begin
-					 		writeln(' ');
-  						writeln('-----------------');
-							writeln('MAQUINA VENCENDOR');
-  						writeln('-----------------');		
-  				  end;		
+  with  pontuacao  do begin	
     writeln(' ');
     writeln(' USUARIO: ',usuario,' ');
     writeln(' ');
     writeln(' MAQUINA: ',maquina,' ');
-    
   end;
 end;
 
@@ -83,8 +78,9 @@ function Escura(var pontuacao:P_pontuacao) :boolean;
 Begin
 //demonstracao
 	marcarPontos(pontuacao,'MAQUINA',3);
-  marcarPontos(pontuacao,'USUARIO',3);
+  marcarPontos(pontuacao,'USUARIO',4);
 	Escura(pontuacao);
 	mostrarPontos(pontuacao);
+	writeln(vencedor(pontuacao));
   
 End.
