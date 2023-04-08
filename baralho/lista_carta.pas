@@ -104,6 +104,7 @@ implementation
         end;
       end;
     end;
+
   function removerDaListaCartaPorPosicao(posicao: integer; var lista: tListaCarta): tCarta;
     begin
       with lista do begin
@@ -116,6 +117,7 @@ implementation
         end;
       end;
     end;
+
   function recuperarValorListaCartaPorPosicao(posicao: integer; var lista: tListaCarta): tCarta;
     begin
       with lista do begin
@@ -126,6 +128,7 @@ implementation
         end;
       end;
     end;
+
   procedure inserirNaListaCarta(valor: tCarta;var lista: tListaCarta);
     var posicaoInserir: integer;
     begin
@@ -142,6 +145,7 @@ implementation
         end;
       end;
     end;
+    
   procedure inicializarListaCarta(var lista: tListaCarta; tamanho: integer);
   begin
     with lista do begin

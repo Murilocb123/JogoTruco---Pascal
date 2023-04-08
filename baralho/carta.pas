@@ -16,7 +16,7 @@ procedure carta_escrever(carta: tCarta);
 
 implementation
 
-function carta_criar(num, nipe:integer):Tcarta;
+function carta_criar(num, nipe:integer):tCarta;
 var carta: Tcarta;
 begin
     carta.poder := carta_define_poder(0, num, nipe, 'N');
@@ -52,7 +52,7 @@ begin
         carta_define_poder:=poder;
     end
     else if(tipo = 'C') then  // C = coringa
-        carta_define_poder:=pod+100
+        carta_define_poder:=pod+40
     else
          carta_define_poder:=pod;
 end;
