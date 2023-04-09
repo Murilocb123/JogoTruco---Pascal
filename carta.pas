@@ -52,7 +52,7 @@ begin
         carta_define_poder:=poder;
     end
     else if(tipo = 'C') then  // C = coringa
-        carta_define_poder:=pod+40
+        carta_define_poder:=40+nipe
     else
          carta_define_poder:=pod;
 end;

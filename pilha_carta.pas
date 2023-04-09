@@ -15,7 +15,7 @@ uses carta;
   function removerDaPilhaCarta(var pilha: tPilhaCarta): tCarta;
   function recuperarValorPilhaCarta(var pilha: tPilhaCarta): tCarta;
   function recuperarValorPilhaCartaPorPosicao(posicao: integer; var pilha: tPilhaCarta): tCarta;
-  function inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta):integer;
+  procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
   procedure inicializarPilhaCarta(var pilha: tPilhaCarta; tamanho: integer);
 
 implementation
@@ -66,16 +66,14 @@ implementation
       end;
     end;
 
-  function inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta):integer;
+  procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
     begin
       with pilha do begin
         if (qtd = max) then begin
           writeln('Pilha esta cheia!');
-          inserirNaPilhaCarta:= 0;
         end else begin
           inc(qtd);
           arr[qtd]:= valor;
-          inserirNaPilhaCarta:= 1;
         end;
       end;
     end;
