@@ -90,7 +90,7 @@ var aux:integer;
 				        truco:= valor
 				      else if aux = 3 then
 										truco:= truco(1)+1;
-	   gitend;							     
+	   end;							     
  end; 	
 	
 // comando principal	
