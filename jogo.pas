@@ -5,13 +5,15 @@ uses crt,
      carta,
      pilha_carta,
      lista_carta;
-var op_main_menu:integer;
-    baralho_lista: tListaCarta;
+var op_main_menu, coringa:integer;
+    baralho_lista, mao_jogador1,  mao_jogador2: tListaCarta;
     baralho_pilha: tPilhaCarta;
 
-procedure init(var op_main_menu:integer);
+procedure init();
 begin
     op_main_menu:= 0;
+    inicializarListaCarta(mao_jogador1, 3);
+    inicializarListaCarta(mao_jogador2, 3);
 end;
 
 {Ler opcoes dos menus em geral}
@@ -28,6 +30,13 @@ begin
     writeln('------------------------------');
     baralho_pilha := baralho_embaralha(baralho_lista);
     escreverPilhaCarta(baralho_pilha);
+    baralho_realiza_corte(20, baralho_pilha);
+    escreverPilhaCarta(baralho_pilha);
+    inicializarListaCarta(mao_jogador1, 3);
+    inicializarListaCarta(mao_jogador2, 3);
+    baralho_distrubui_cartas(mao_jogador1,  mao_jogador2, baralho_pilha, coringa);
+    escreverListaCarta(mao_jogador1);
+    escreverListaCarta(mao_jogador2);
 end;
 
 procedure inicio_partida();
@@ -37,7 +46,7 @@ end;
 
 {Programa principal}
 Begin
-    init(op_main_menu);
+    init();
     while not(op_main_menu = 4) do
     begin
         clrscr();

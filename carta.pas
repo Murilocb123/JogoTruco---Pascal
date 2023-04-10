@@ -12,6 +12,7 @@ interface
 function carta_define_poder(pod, num, nipe:integer; tipo:char):integer;
 function carta_criar(num, nipe:integer):Tcarta;
 procedure carta_escrever(carta: tCarta);
+procedure carta_verifica_coringa(var carta:tCarta; coringa:integer);
 
 
 implementation
@@ -25,6 +26,17 @@ begin
     carta.nipe  := nipe;
 
     carta_criar := carta;
+end;
+
+procedure carta_verifica_coringa(var carta:tCarta; coringa:integer);
+begin
+  with carta do
+  begin
+    if (num = coringa) then begin
+      tipo:='C';
+      carta_define_poder(poder, num, nipe,tipo);
+    end
+  end;
 end;
 
 {Valor do nipe       = 4 - paus 3 - copas 2 - espadas 1 - moles}
@@ -49,7 +61,7 @@ begin
           4:  poder:= 1*4;
      end;
        poder :=(poder+nipe)-4;
-        carta_define_poder:=poder;
+       carta_define_poder:=poder;
     end
     else if(tipo = 'C') then  // C = coringa
         carta_define_poder:=40+nipe
