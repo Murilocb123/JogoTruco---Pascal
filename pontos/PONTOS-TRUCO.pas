@@ -74,11 +74,21 @@ function Escura(var pontuacao:P_pontuacao) :boolean;
 	
 	end;
 	
+//TRUCO
+function truco (valor:integer):integer;
+
+ begin
+     if (valor > 0) and (valor < 5) then
+         truco:=valor
+     else
+		     truco:=0;    
+ end; 	
+	
 // comando principal	
 Begin
 //demonstracao
-	marcarPontos(pontuacao,'MAQUINA',3);
-  marcarPontos(pontuacao,'USUARIO',4);
+	marcarPontos(pontuacao,'MAQUINA',truco(3));
+  marcarPontos(pontuacao,'USUARIO',truco(4));
 	Escura(pontuacao);
 	mostrarPontos(pontuacao);
 	writeln(vencedor(pontuacao));
