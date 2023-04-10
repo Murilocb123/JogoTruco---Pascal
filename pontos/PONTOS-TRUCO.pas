@@ -8,7 +8,7 @@ end;
 
 var pontuacao: P_pontuacao;
 
-//FUNÇÃO VENCEDOR
+//FUNï¿½ï¿½O VENCEDOR
 function vencedor(var pontuacao: P_pontuacao): string;
 begin
     with pontuacao do begin  
@@ -18,7 +18,7 @@ begin
 							 vencedor:='MAQUINA VENCENDOR';  						      		
     end;							
 end;
-//PROCEDIMENTO MOSTRAR PONTUAÇÂO SALVA NO REGISTRO
+//PROCEDIMENTO MOSTRAR PONTUAï¿½ï¿½O SALVA NO REGISTRO
 procedure mostrarPontos(var pontuacao:P_pontuacao);
 begin
   with  pontuacao  do begin	
@@ -29,7 +29,7 @@ begin
   end;
 end;
 
-//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" é salvado os pontos multiplicando por 3  
+//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" ï¿½ salvado os pontos multiplicando por 3  
 procedure marcarPontos(var pontuacao:P_pontuacao; pontuador: string; valor: integer );
 begin
   with  pontuacao  do begin
@@ -61,7 +61,7 @@ function Escura(var pontuacao:P_pontuacao) :boolean;
 									Escura:= true;
 									writeln(' ');
 									writeln('-----------');
-									writeln('MÃO DE ONZE');	
+									writeln('Mï¿½O DE ONZE');	
 									writeln('-----------'); 
 				          writeln(' ');
 				      end
@@ -81,6 +81,7 @@ var aux:integer;
  begin
  		
      if (valor > 0) and (valor < 5) then
+      begin
      		 write('CORRER = 1 ACEITAR = 2 AUMENTAR = 3 ');
      		 read(aux);
      		 if aux = 1 then
@@ -88,10 +89,8 @@ var aux:integer;
      		 else if aux = 2 then
 				        truco:= valor
 				      else if aux = 3 then
-										truco:= truco(1)+1;  
-         
-					     
-     
+										truco:= truco(1)+1;
+	   gitend;							     
  end; 	
 	
 // comando principal	
