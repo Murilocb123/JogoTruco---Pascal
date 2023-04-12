@@ -107,10 +107,10 @@ var aux:integer;
      		 else if aux = 2 then
 				        truco:= valor
 				      else if aux = 3 then
-				             begin
-				             
-										truco:= truco(valor+1);
-										end;
+										 if valor = 4 then
+										    truco:= valor
+										 else						             
+										   truco:= truco(valor+1);
 	   end;							     
  end; 	
 	
