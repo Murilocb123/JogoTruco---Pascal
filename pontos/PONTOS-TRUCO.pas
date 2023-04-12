@@ -8,7 +8,7 @@ end;
 
 var pontuacao: P_pontuacao;
 
-//FUN��O VENCEDOR
+//FUNCAO VENCEDOR
 function vencedor(var pontuacao: P_pontuacao): string;
 begin
     with pontuacao do begin  
@@ -18,7 +18,7 @@ begin
 							 vencedor:='MAQUINA VENCENDOR';  						      		
     end;							
 end;
-//PROCEDIMENTO MOSTRAR PONTUA��O SALVA NO REGISTRO
+//PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
 procedure mostrarPontos(var pontuacao:P_pontuacao);
 begin
   with  pontuacao  do begin	
@@ -29,7 +29,17 @@ begin
   end;
 end;
 
-//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" � salvado os pontos multiplicando por 3  
+//ULTIMO GANHADOR
+function ultimo_ganhador(pontuador:string):string;
+
+ begin
+     if (pontuador = 'USUARIO') or (pontuador = 'MAQUINA') then
+     	ultimo_ganhador:= pontuador
+     else 
+		  ultimo_ganhador:='NINGUEM'; 	
+ end;
+
+//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3  
 procedure marcarPontos(var pontuacao:P_pontuacao; pontuador: string; valor: integer );
 begin
   with  pontuacao  do begin
@@ -48,10 +58,12 @@ begin
       else if valor > 0 then
       				maquina:= maquina + valor * 3;
     end;
-    
+		writeln(' ',ultimo_ganhador(pontuador)); 
   end;
 end;
 
+
+//COMANDO ESCURA (quando ambos tiverem 11 pontos)
 function Escura(var pontuacao:P_pontuacao) :boolean;
 
 	begin
@@ -61,7 +73,7 @@ function Escura(var pontuacao:P_pontuacao) :boolean;
 									Escura:= true;
 									writeln(' ');
 									writeln('-----------');
-									writeln('M�O DE ONZE');	
+									writeln('MAO DE ONZE');	
 									writeln('-----------'); 
 				          writeln(' ');
 				      end
@@ -74,7 +86,7 @@ function Escura(var pontuacao:P_pontuacao) :boolean;
 	
 	end;
 	
-//TRUCO                                                                                                                 
+//TRUCO (aumenta o valor de pontos da rodada)                                                                                                                
 function truco (valor:integer):integer;
 
 var aux:integer;
@@ -97,8 +109,10 @@ var aux:integer;
 Begin
 //demonstracao
 	marcarPontos(pontuacao,'MAQUINA',truco(1));
+	writeln(' ');
   marcarPontos(pontuacao,'USUARIO',truco(1));
 	Escura(pontuacao);
+	writeln(' ');
 	mostrarPontos(pontuacao);
 	writeln(vencedor(pontuacao));
   
