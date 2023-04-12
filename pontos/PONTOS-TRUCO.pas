@@ -8,6 +8,12 @@ end;
 
 var pontuacao: P_pontuacao;
 
+//-----TESTE-----//
+const
+ jogador_user: string = 'USUARIO';
+ jogador_machine: string = 'MAQUINA';
+//---------------//
+	
 //FUNCAO VENCEDOR
 function vencedor(var pontuacao: P_pontuacao): string;
 begin
@@ -29,7 +35,7 @@ begin
   end;
 end;
 
-//ULTIMO GANHADOR
+//ULTIMO GANHADOR (chamada no marcarPontos)
 function ultimo_ganhador(pontuador:string):string;
 
  begin
@@ -101,16 +107,19 @@ var aux:integer;
      		 else if aux = 2 then
 				        truco:= valor
 				      else if aux = 3 then
-										truco:= truco(1)+1;
+				             begin
+				             
+										truco:= truco(valor+1);
+										end;
 	   end;							     
  end; 	
 	
 // comando principal	
 Begin
 //demonstracao
-	marcarPontos(pontuacao,'MAQUINA',truco(1));
+	marcarPontos(pontuacao,jogador_machine,truco(1));
 	writeln(' ');
-  marcarPontos(pontuacao,'USUARIO',truco(1));
+  marcarPontos(pontuacao,jogador_user,truco(1));
 	Escura(pontuacao);
 	writeln(' ');
 	mostrarPontos(pontuacao);
