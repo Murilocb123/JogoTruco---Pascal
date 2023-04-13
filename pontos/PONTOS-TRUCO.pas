@@ -13,15 +13,44 @@ const
  jogador_usuario: string = 'USUARIO';
  jogador_maquina: string = 'MAQUINA';
 //---------------//
-	
-//FUNCAO VENCEDOR
+
+// PROCEDIMENTO zera a pontuacao
+procedure pontuacao_inicializar (var pontuacao:tPontuacao);
+begin
+    with pontuacao do begin
+        pontos_usuario:= 0;
+        pontos_maquina:= 0;
+    end;
+end;
+		    
+// FUNCAO TEM VENCEDOR true ou false
+function pontuacao_tem_vencedor(var pontuacao: tPontuacao):boolean;
+begin
+    with pontuacao do begin
+		    if (pontos_usuario >=12) or (pontos_maquina >=12) then
+				    pontuacao_tem_vencedor:= true
+				else
+				    pontuacao_tem_vencedor:= false;
+		end;		    
+end;
+									
+//FUNCAO VENCEDOR string
 function pontuacao_vencedor(var pontuacao: tPontuacao): string;
 begin
     with pontuacao do begin  
         if pontos_usuario >= 12 then
-				     pontuacao_vencedor:='USUARIO VENCENDOR'
+          begin
+				     pontuacao_vencedor:='USUARIO VENCENDOR';
+				     pontuacao_tem_vencedor(pontuacao);
+				  end   
 		    else if pontos_maquina >= 12 then
-							 pontuacao_vencedor:='MAQUINA VENCENDOR';  						      		
+		           begin
+							    pontuacao_vencedor:='MAQUINA VENCENDOR';
+									pontuacao_tem_vencedor(pontuacao);
+								end
+						 else
+						    pontuacao_vencedor:='NINGUEM';	
+						    pontuacao_tem_vencedor(pontuacao);	  						      		
     end;							
 end;
 //PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
@@ -122,6 +151,7 @@ Begin
   pontuacao_marcar_pontos(pontuacao,jogador_usuario,truco(1));
 	pontuacao_escura(pontuacao);
 	writeln(' ');
+	pontuacao_inicializar(pontuacao);
 	pontuacao_mostrar_pontos(pontuacao);
 	writeln(pontuacao_vencedor(pontuacao));
   
