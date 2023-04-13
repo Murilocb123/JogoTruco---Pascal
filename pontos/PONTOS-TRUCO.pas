@@ -1,91 +1,91 @@
 Program Pzim ;
 
 type
-P_pontuacao = record
-  usuario: integer;
-  maquina: integer;
+tPontuacao = record
+  pontos_usuario: integer;
+  pontos_maquina: integer;
 end;
 
-var pontuacao: P_pontuacao;
+var pontuacao: tPontuacao;
 
 //-----TESTE-----//
 const
- jogador_user: string = 'USUARIO';
- jogador_machine: string = 'MAQUINA';
+ jogador_usuario: string = 'USUARIO';
+ jogador_maquina: string = 'MAQUINA';
 //---------------//
 	
 //FUNCAO VENCEDOR
-function vencedor(var pontuacao: P_pontuacao): string;
+function pontuacao_vencedor(var pontuacao: tPontuacao): string;
 begin
     with pontuacao do begin  
-        if usuario >= 12 then
-				     vencedor:='USUARIO VENCENDOR'
-		    else if maquina >= 12 then
-							 vencedor:='MAQUINA VENCENDOR';  						      		
+        if pontos_usuario >= 12 then
+				     pontuacao_vencedor:='USUARIO VENCENDOR'
+		    else if pontos_maquina >= 12 then
+							 pontuacao_vencedor:='MAQUINA VENCENDOR';  						      		
     end;							
 end;
 //PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
-procedure mostrarPontos(var pontuacao:P_pontuacao);
+procedure pontuacao_mostrar_pontos(var pontuacao:tPontuacao);
 begin
   with  pontuacao  do begin	
     writeln(' ');
-    writeln(' USUARIO: ',usuario,' ');
+    writeln(' USUARIO: ',pontos_usuario,' ');
     writeln(' ');
-    writeln(' MAQUINA: ',maquina,' ');
+    writeln(' MAQUINA: ',pontos_maquina,' ');
   end;
 end;
 
 //ULTIMO GANHADOR (chamada no marcarPontos)
-function ultimo_ganhador(pontuador:string):string;
+function pontuacao_ultimo_ganhador(pontuador:string):string;
 
  begin
      if (pontuador = 'USUARIO') or (pontuador = 'MAQUINA') then
-     	ultimo_ganhador:= pontuador
+     	pontuacao_ultimo_ganhador:= pontuador
      else 
-		  ultimo_ganhador:='NINGUEM'; 	
+		  pontuacao_ultimo_ganhador:='NINGUEM'; 	
  end;
 
-//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3  
-procedure marcarPontos(var pontuacao:P_pontuacao; pontuador: string; valor: integer );
+//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3}  
+procedure pontuacao_marcar_pontos(var pontuacao:tPontuacao; pontuador: string; valor: integer );
 begin
   with  pontuacao  do begin
     
     if pontuador = 'USUARIO' then
     begin
       if valor = 0 then
-      	usuario:=usuario+1
+      	pontos_usuario:=pontos_usuario+1
       else if valor > 0 then
-      				usuario:= usuario + valor * 3;
+      				pontos_usuario:= pontos_usuario + valor * 3;
     end  			
     else if pontuador = 'MAQUINA' then
     begin
       if valor = 0 then
-      	 maquina:=maquina+1
+      	 pontos_maquina:=pontos_maquina+1
       else if valor > 0 then
-      				maquina:= maquina + valor * 3;
+      				pontos_maquina:= pontos_maquina + valor * 3;
     end;
-		writeln(' ',ultimo_ganhador(pontuador)); 
+		writeln(' ',pontuacao_ultimo_ganhador(pontuador)); 
   end;
 end;
 
 
 //COMANDO ESCURA (quando ambos tiverem 11 pontos)
-function Escura(var pontuacao:P_pontuacao) :boolean;
+function pontuacao_escura(var pontuacao:tPontuacao) :boolean;
 
 	begin
 	      with pontuacao do begin
-	          if (usuario = 11) and (maquina = 11) then
+	          if (pontos_usuario = 11) and (pontos_maquina = 11) then
 							begin
-									Escura:= true;
 									writeln(' ');
 									writeln('-----------');
 									writeln('MAO DE ONZE');	
 									writeln('-----------'); 
 				          writeln(' ');
+				          pontuacao_escura:= true;
 				      end
 						else
 							begin
-									Escura:=false;
+									pontuacao_escura:=false;
 							end;	    
 				end;
 	
@@ -117,12 +117,12 @@ var aux:integer;
 // comando principal	
 Begin
 //demonstracao
-	marcarPontos(pontuacao,jogador_machine,truco(1));
+	pontuacao_marcar_pontos(pontuacao,jogador_maquina,truco(1));
 	writeln(' ');
-  marcarPontos(pontuacao,jogador_user,truco(1));
-	Escura(pontuacao);
+  pontuacao_marcar_pontos(pontuacao,jogador_usuario,truco(1));
+	pontuacao_escura(pontuacao);
 	writeln(' ');
-	mostrarPontos(pontuacao);
-	writeln(vencedor(pontuacao));
+	pontuacao_mostrar_pontos(pontuacao);
+	writeln(pontuacao_vencedor(pontuacao));
   
 End.
