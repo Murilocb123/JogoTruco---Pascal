@@ -7,6 +7,7 @@ interface
     tPontuacao = record
     pontos_usuario: integer;
     pontos_maquina: integer;
+    pontos_ultimo_vencedor: string;
   end;
 
 
@@ -18,7 +19,7 @@ interface
     function pontuacao_vencedor(pontuacao:tPontuacao): string; //FUNCAO VENCEDOR string
     procedure pontuacao_mostrar_pontos(pontuacao:tPontuacao); //PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
 	  procedure pontuacao_marcar_pontos(pontuacao:tPontuacao;pontuador:string;valor:integer); //PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3} 
-    function pontuacao_ultimo_ganhador(pontuador:string):string; //ULTIMO GANHADOR (chamada no marcarPontos)
+    function pontuacao_ultimo_ganhador(pontuacao:tPontuacao):string; //ULTIMO GANHADOR (chamada no marcarPontos)
     function pontuacao_escura(pontuacao:tPontuacao):boolean; //COMANDO ESCURA (quando ambos tiverem 11 pontos)
    
     
@@ -53,12 +54,12 @@ begin
     with pontuacao do begin  
         if pontos_usuario >= 12 then
           begin
-				     pontuacao_vencedor:='USUARIO VENCENDOR';
+				     pontuacao_vencedor:='USUARIO';
 				     pontuacao_tem_vencedor(pontuacao);
 				  end   
 		    else if pontos_maquina >= 12 then
 		           begin
-							    pontuacao_vencedor:='MAQUINA VENCENDOR';
+							    pontuacao_vencedor:='MAQUINA';
 									pontuacao_tem_vencedor(pontuacao);
 								end
 						 else
@@ -78,14 +79,16 @@ begin
 end;
 
 //ULTIMO GANHADOR (chamada no marcarPontos)
-function pontuacao_ultimo_ganhador(pontuador:string):string;
+function pontuacao_ultimo_ganhador(var pontuacao:tPontuacao):string;
 
- begin
-     if (pontuador = 'USUARIO') or (pontuador = 'MAQUINA') then
-     	pontuacao_ultimo_ganhador:= pontuador
+begin
+  with pontuacao do begin   
+      if (pontos_ultimo_vencedor = 'MAQUINA') or ( pontos_ultimo_vencedor = 'USUARIO')then
+        pontuacao_ultimo_ganhador := pontos_ultimo_vencedor
      else 
-		  pontuacao_ultimo_ganhador:='NINGUEM'; 	
- end;
+		   pontuacao_ultimo_ganhador := 'NINGUEM'; 
+	 end;			
+end;
 
 //PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3}  
 procedure pontuacao_marcar_pontos(var pontuacao:tPontuacao; pontuador: string; valor: integer );
@@ -106,7 +109,7 @@ begin
       else if valor > 0 then
       				pontos_maquina:= pontos_maquina + valor * 3;
     end;
-		writeln(' ',pontuacao_ultimo_ganhador(pontuador)); 
+		 pontos_ultimo_vencedor:= pontuador;  
   end;
 end;
 
