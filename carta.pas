@@ -34,6 +34,10 @@ begin
   begin
     if (num = coringa) then begin
       tipo:='C';
+      writeln(tipo);
+      writeln(num);
+      writeln(nipe);
+      writeln(poder);
       carta_define_poder(poder, num, nipe,tipo);
     end
   end;

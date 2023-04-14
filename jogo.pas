@@ -4,16 +4,15 @@ uses crt,
      baralho,
      carta,
      pilha_carta,
-     lista_carta;
-var op_main_menu, coringa:integer;
-    baralho_lista, mao_jogador1,  mao_jogador2: tListaCarta;
-    baralho_pilha: tPilhaCarta;
+     lista_carta,
+     rodada,
+     pontuacao,
+     util;
+var op_main_menu: integer;
 
 procedure init();
 begin
     op_main_menu:= 0;
-    inicializarListaCarta(mao_jogador1, 3);
-    inicializarListaCarta(mao_jogador2, 3);
 end;
 
 {Ler opcoes dos menus em geral}
@@ -25,23 +24,56 @@ end;
 procedure teste();
 begin
     //insira o codigo de teste
-    baralho_lista := baralho_init();
-    escreverListaCarta(baralho_lista);
-    writeln('------------------------------');
-    baralho_pilha := baralho_embaralha(baralho_lista);
-    escreverPilhaCarta(baralho_pilha);
-    baralho_realiza_corte(20, baralho_pilha);
-    escreverPilhaCarta(baralho_pilha);
-    inicializarListaCarta(mao_jogador1, 3);
-    inicializarListaCarta(mao_jogador2, 3);
-    baralho_distrubui_cartas(mao_jogador1,  mao_jogador2, baralho_pilha, coringa);
-    escreverListaCarta(mao_jogador1);
-    escreverListaCarta(mao_jogador2);
+    // baralho_lista := baralho_init();
+    // escreverListaCarta(baralho_lista);
+    // writeln('------------------------------');
+    // baralho_pilha := baralho_embaralha(baralho_lista);
+    // escreverPilhaCarta(baralho_pilha);
+    // baralho_realiza_corte(20, baralho_pilha);
+    // escreverPilhaCarta(baralho_pilha);
+    // inicializarListaCarta(mao_usuario, 3);
+    // inicializarListaCarta(mao_maquina, 3);
+    // baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
+    // escreverListaCarta(mao_usuario);
+    // escreverListaCarta(mao_maquina);
 end;
 
 procedure inicio_partida();
+var coringa:integer;
+    baralho_lista, mao_usuario,  mao_maquina: tListaCarta;
+    baralho_pilha: tPilhaCarta;
+    pontucao: tPontuacao;
 begin
-    writeln('partida');
+    writeln('Inicio da partida.');
+
+    baralho_lista := baralho_init();
+    pontuacao_inicializar(pontucao);
+    // while not(pontuacao_tem_vencedor(pontuacao)) do begin
+      baralho_pilha := baralho_embaralha(baralho_lista);
+      baralho_realiza_corte(20, baralho_pilha);
+      inicializarListaCarta(mao_usuario, 3);
+      inicializarListaCarta(mao_maquina, 3);
+      baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
+      escreverListaCarta(mao_usuario);
+      escreverListaCarta(mao_maquina);
+      writeln(coringa);
+    // end;
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 end;
 
 {Programa principal}
