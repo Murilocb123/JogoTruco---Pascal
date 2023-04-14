@@ -43,12 +43,13 @@ var coringa:integer;
     baralho_lista, mao_usuario,  mao_maquina: tListaCarta;
     baralho_pilha: tPilhaCarta;
     pontucao: tPontuacao;
+    rodada: tRodada;
+    i, j:integer;
 begin
     writeln('Inicio da partida.');
 
     baralho_lista := baralho_init();
     pontuacao_inicializar(pontucao);
-    // while not(pontuacao_tem_vencedor(pontuacao)) do begin
       baralho_pilha := baralho_embaralha(baralho_lista);
       baralho_realiza_corte(20, baralho_pilha);
       inicializarListaCarta(mao_usuario, 3);
@@ -57,7 +58,27 @@ begin
       escreverListaCarta(mao_usuario);
       escreverListaCarta(mao_maquina);
       writeln(coringa);
-    // end;
+
+    while (not(pontuacao_tem_vencedor(pontuacao)))
+    rodada_inicializar(rodada);
+    //   While da rodada
+    while ( not(rodada_finalizada(rodada))) do begin
+
+        // ganhador:= joogada_fazer_jogada(rodada_quem_comeca(rodada), mao_usuario, mao_maquina, coringa);
+        i:= aleatorioEntre(1, 3);
+        if (i = 1) then
+            rodada_adicionar_resultado(rodada, 'USUARIO')
+        else if (i = 2) then
+            rodada_adicionar_resultado(rodada, 'MAQUINA')
+        else 
+            rodada_adicionar_resultado(rodada, 'EMPACHE');
+
+        rodada_mostrar_resultado(rodada);
+        delay(1000);
+    end;
+    writeln('Rodada finalizada, resultado: ');
+    rodada_mostrar_resultado(rodada);
+    writeln('Vencedor: ', rodada_jogador_ganhador(rodada));
 
 
 

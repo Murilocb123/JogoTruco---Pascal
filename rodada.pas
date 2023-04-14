@@ -62,19 +62,6 @@ begin
     else if ((jogadas_vencedor[1] = jogador) and (jogadas_vencedor[3] = 'EMPACHE')) then //Combinacao 7
       ganhou:= true
 
-    //Se a primeira jogadas_vencedor foi o jogador que ganhou
-    // if ((jogadas_vencedor[1] = jogador) and (
-    //     (jogadas_vencedor[2] = jogador) or
-    //     (jogadas_vencedor[2] = 'EMPACHE') or
-    //     (jogadas_vencedor[3] = jogador))) then
-    //       ganhou:= true
-    // else if ((jogadas_vencedor[1] = 'EMPACHE') and (jogadas_vencedor[2] = jogador)) then
-    //     ganhou:= true
-    // else if ((jogadas_vencedor[3] = jogador) ) then
-    //     ganhou:= true
-    // else if ((jogadas_vencedor[3] = 'EMPACHE') and (jogadas_vencedor[1] = jogador))
-    //     ganhou:= true
-
   end;
   rodada_jogador_ganhou:= ganhou;
 end;
