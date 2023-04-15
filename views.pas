@@ -8,16 +8,16 @@ implementation
     procedure views_menu_main();
     begin
         Writeln('---------------------------------');
-        Writeln('[1] - Start Game'); 
+        Writeln('[1] - Start Game');
         Writeln('[2] - Authors');
         Writeln('[3] - Mostrar da partida anterior');
         Writeln('[4] - Exit');
         Writeln('[5] - Realizar teste');
-        Writeln('---------------------------------'); 
+        Writeln('---------------------------------');
     end;
     procedure views_authors();
     begin
-        writeln('Murilo Lindo, Alison feio que doi e Gersu tem tantas entradas que parece a 470')
+        writeln('Murilo feito que doi, Alison gatão e Gersu tem tantas entradas que parece a 470')
     end;
 
 // procedure views_menu_jogada(); // add parametros
@@ -52,10 +52,10 @@ implementation
 //          writeln('   -------------Escolha as ações---------------');
 //          if not (valor_rodada < 12) then
 //             writeln('   [5]- Correr. [6]- Aceitar [7]- Aumentar 3');
-//          else 
-//             writeln('  [5]- Correr. [6]- Aceitar')  
-            
-//     end;  
+//          else
+//             writeln('  [5]- Correr. [6]- Aceitar')
+
+//     end;
 end.
 
 
