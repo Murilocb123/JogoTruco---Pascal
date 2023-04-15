@@ -6,7 +6,7 @@ uses
 
     
 implementation
-
+const
 
     
 end.

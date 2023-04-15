@@ -73,8 +73,7 @@ begin
 
       // Laço de repetição da rodada (melhor de 3);
       while ( not(rodada_finalizada(rodada))) do begin
-
-          // ganhador:= joogada_fazer_jogada(rodada_quem_comeca(rodada), mao_usuario, mao_maquina, coringa);
+          //:= joogada_fazer_jogada(rodada{rodada_quem_comeca, manilha, qtdTruco, ult_pediuTruco}, mao_usuario, mao_maquina,);
           i:= aleatorioEntre(1, 3);
           if (i = 1) then
               rodada_adicionar_resultado(rodada, 'USUARIO')
