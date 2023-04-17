@@ -7,22 +7,22 @@ interface
     function baralho_embaralha(lista_carta: tListaCarta):tPilhaCarta;
     {funcao para realizar o corte usando somente pilhas, pilha_carta_aux1 usada para armazenar o montante cortado e inserir em baixo da pilha}
     function baralho_realiza_corte(posi_corte:integer; var baralho_pilha_embaralhado:tPilhaCarta):integer;
-    procedure baralho_distrubui_cartas( var mao_jogador1, mao_jogador2:tListaCarta; var baralho_pilha_cortado:tPilhaCarta; var coringa:integer);
-    function baralho_define_coringa(num:integer):integer;
+    procedure baralho_distrubui_cartas( var mao_jogador1, mao_jogador2:tListaCarta; var baralho_pilha_cortado:tPilhaCarta; var manilha:integer);
+    function baralho_define_manilha(num:integer):integer;
 
 implementation
 
-procedure baralho_distrubui_cartas(var mao_jogador1,  mao_jogador2:tListaCarta; var baralho_pilha_cortado:tPilhaCarta; var coringa:integer);
+procedure baralho_distrubui_cartas(var mao_jogador1,  mao_jogador2:tListaCarta; var baralho_pilha_cortado:tPilhaCarta; var manilha:integer);
 var carta:tCarta;
     i, j:integer;
 begin
     carta:=recuperarValorPilhaCartaPorPosicao(baralho_pilha_cortado.qtd-6,baralho_pilha_cortado);
-    coringa := baralho_define_coringa(carta.num);
+    manilha := baralho_define_manilha(carta.num);
     j:=baralho_pilha_cortado.qtd-6;
     while (baralho_pilha_cortado.qtd > j ) do begin
         i:= baralho_pilha_cortado.qtd;
         carta:=removerDaPilhaCarta(baralho_pilha_cortado);
-        carta_verifica_coringa(carta, coringa);
+        carta_verifica_manilha(carta, manilha);
         if((i mod 2) =0) then
             inserirNaListaCarta(carta, mao_jogador1)
         else
@@ -30,14 +30,14 @@ begin
     end;
 end;
 
-function baralho_define_coringa(num:integer):integer;
+function baralho_define_manilha(num:integer):integer;
 begin
     if (num = 7) then
-        baralho_define_coringa := 10
+        baralho_define_manilha := 10
     else if(num = 12) then
-        baralho_define_coringa := 1
+        baralho_define_manilha := 1
     else 
-        baralho_define_coringa := num+1;
+        baralho_define_manilha := num+1;
 end;
 
 {funcao para realizar o corte usando somente pilhas, pilha_carta_aux1 usada para armazenar o montante cortado e inserir em baixo da pilha}

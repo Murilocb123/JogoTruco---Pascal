@@ -6,6 +6,9 @@ uses carta, util;
 type tRodada = record
   jogadas_vencedor: array[1..3] of string; //MAQUINA, USUARIO, EMPACHE
   jogada_atual: integer;
+  manilha:integer;
+  pontuacaoExtra:integer;
+  ultimo_comecou:String;
 end;
 
 function rodada_jogador_ganhou(rodada: tRodada; jogador: string): boolean;
@@ -15,6 +18,7 @@ function rodada_quem_comeca(rodada: tRodada): string;
 procedure rodada_inicializar(rodada: tRodada);
 procedure rodada_adicionar_resultado(rodada: tRodada; resultado: string);
 procedure rodada_mostrar_resultado(rodada: tRodada);
+procedure rodada_adicionar_manilha(rodada: tRodada; manilha_valor:integer);
 
 
 implementation
@@ -26,6 +30,8 @@ begin
     jogadas_vencedor[2]:= '';
     jogadas_vencedor[3]:= '';
     jogada_atual:= 1;
+    pontuacaoExtra:=0;
+    manilha:=0;
   end;
 end;
 
@@ -90,18 +96,28 @@ begin
       dec(i)
     end;
 
-    if (i > 1 ) then
-      rodada_quem_comeca:= jogadas_vencedor[i]
-    else if not('NINGUEM' = 'NINGUEM') then
-      rodada_quem_comeca:= 'USUARIO'
-    else begin
+    if (i >= 1 ) then
+      if (jogadas_vencedor[i] = 'EMPACHE' ) then
+        rodada_quem_comeca:=ultimo_comecou
+      else
+        rodada_quem_comeca:= jogadas_vencedor[i]
+    else if(ultimo_comecou = '') then begin
       j:= aleatorioEntre(1,2);
       if (j = 1) then
-        rodada_quem_comeca:= 'MAQUINA'
+      begin
+        ultimo_comecou:='MAQUINA';
+        rodada_quem_comeca:= 'MAQUINA';
+      end else begin
+        rodada_quem_comeca:= 'USUARIO';
+        ultimo_comecou:='USUARIO';
+      end;
+    end else begin
+      if (ultimo_comecou='USUARIO') then
+        ultimo_comecou := 'MAQUINA'
       else
-        rodada_quem_comeca:= 'USUARIO'
-    end;
-
+        ultimo_comecou := 'USUARIO';
+      rodada_quem_comeca :=ultimo_comecou;
+    end
   end;
 end;
 
@@ -116,14 +132,17 @@ end;
 procedure rodada_mostrar_resultado(rodada: tRodada);
 begin
   with rodada do begin
-    writeln('--------------------------');
-    writeln('-------RODADA ATUAL-------');
-    writeln('[1] ', jogadas_vencedor[1]);
-    writeln('[2] ', jogadas_vencedor[2]);
-    writeln('[3] ', jogadas_vencedor[3]);
+    writeln('1 - ', jogadas_vencedor[1]);
+    writeln('2 -  ', jogadas_vencedor[2]);
+    writeln('3 -  ', jogadas_vencedor[3]);
     writeln('Jogada atual: ', jogada_atual);
-    writeln('--------------------------')
   end;
+end;
+
+procedure rodada_adicionar_manilha(var rodada: tRodada; manilha_valor:integer);
+begin
+  with rodada do 
+    manilha := manilha_valor;
 end;
 
 end.

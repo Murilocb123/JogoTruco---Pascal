@@ -7,7 +7,9 @@ uses crt,
      lista_carta,
      rodada,
      pontuacao,
-     util;
+     util,
+     bot,
+     jogada;
 var op_main_menu: integer;
     pontuacao_anterior: tPontuacao;
 
@@ -23,29 +25,46 @@ begin
 end;
 
 procedure teste();
+var baralho_pilha:tPilhaCarta;
+    ultimaCarta:tCarta;
+    rodada: tRodada;
+    mao_usuario,baralho_lista, mao_maquina:tListaCarta;
+    pontuacao: tPontuacao;
+    coringa, op:integer;
+    value:string;
 begin
-    //insira o codigo de teste
-    // baralho_lista := baralho_init();
+    //insira o codigo de teste 
+    baralho_lista := baralho_init();
+    escreverListaCarta(baralho_lista);
     // escreverListaCarta(baralho_lista);
     // writeln('------------------------------');
-    // baralho_pilha := baralho_embaralha(baralho_lista);
+     baralho_pilha := baralho_embaralha(baralho_lista);
     // escreverPilhaCarta(baralho_pilha);
-    // baralho_realiza_corte(20, baralho_pilha);
+     baralho_realiza_corte(20, baralho_pilha);
     // escreverPilhaCarta(baralho_pilha);
-    // inicializarListaCarta(mao_usuario, 3);
-    // inicializarListaCarta(mao_maquina, 3);
-    // baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
-    // escreverListaCarta(mao_usuario);
-    // escreverListaCarta(mao_maquina);
+     inicializarListaCarta(mao_usuario, 3);
+     inicializarListaCarta(mao_maquina, 3);
+     baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
+     writeln(coringa);
+     escreverListaCarta(mao_usuario);
+     writeln('bot:');
+     escreverListaCarta(mao_maquina);
+     pontuacao_inicializar(pontuacao);
+     op:=bot_escolhe_acao(mao_usuario.arr[1], pontuacao, mao_maquina, 0);
+
+     writeln('bot escolheu:', op);
+     rodada_inicializar(rodada);
+     value := rodada_quem_comeca(rodada);
+     writeln(value);
 end;
 
 procedure inicio_partida();
-var coringa:integer;
+var manilha:integer;
     baralho_lista, mao_usuario,  mao_maquina: tListaCarta;
     baralho_pilha: tPilhaCarta;
     pontuacao: tPontuacao;
     rodada: tRodada;
-    rodada_ganhador: string;
+    rodada_ganhador, jogada_ganhador: string;
     i, j:integer;
 begin
     writeln('Inicio da partida.');
@@ -57,8 +76,8 @@ begin
     while (not(pontuacao_tem_vencedor(pontuacao))) do begin
       // Limpa a tela e motra a pontuacao atual
       clrscr();
-      pontuacao_mostrar_pontos(pontuacao);
-      writeln('Nova rodada iniciada.');
+      
+      views_inicio_rodada();
 
       // Inicializa o baralho e as mãos dos jogadores
       rodada_inicializar(rodada);
@@ -66,24 +85,17 @@ begin
       baralho_realiza_corte(20, baralho_pilha);
       inicializarListaCarta(mao_usuario, 3);
       inicializarListaCarta(mao_maquina, 3);
-      baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
-      // escreverListaCarta(mao_usuario);
-      // escreverListaCarta(mao_maquina);
-      // writeln(coringa);
+      baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, manilha);
+      rodada_adicionar_manilha(rodada, manilha);
 
       // Laço de repetição da rodada (melhor de 3);
-      while ( not(rodada_finalizada(rodada))) do begin
-          //:= joogada_fazer_jogada(rodada{rodada_quem_comeca, manilha, qtdTruco, ult_pediuTruco}, mao_usuario, mao_maquina,);
-          i:= aleatorioEntre(1, 3);
-          if (i = 1) then
-              rodada_adicionar_resultado(rodada, 'USUARIO')
-          else if (i = 2) then
-              rodada_adicionar_resultado(rodada, 'MAQUINA')
-          else
-              rodada_adicionar_resultado(rodada, 'EMPACHE');
-
-          rodada_mostrar_resultado(rodada);
-          delay(100);
+      while not (rodada_finalizada(rodada)) do begin
+        jogada_ganhador:= jogada_iniciar_jogada(rodada, mao_usuario, mao_maquina,pontuacao);
+        rodada_adicionar_resultado(rodada, jogada_ganhador);
+        clrscr();
+        views_mostra_ganhador_jogada(jogada_ganhador);
+        delay(1500);
+        clrscr();
       end;
 
       // Rodada finalizada, mostra os resultados e marca na pontuacao global.
@@ -94,7 +106,7 @@ begin
 
       if (rodada_ganhador <> 'NINGUEM') then
         pontuacao_marcar_pontos(pontuacao, rodada_ganhador, 0);
-      delay(100);
+      delay(2000);
     end;
     clrscr();
     writeln('JOGO FINALIZADO!');

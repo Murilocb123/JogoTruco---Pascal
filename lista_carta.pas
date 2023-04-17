@@ -23,12 +23,10 @@ implementation
     var i: integer;
     begin
       with lista do begin
-        writeln();
-        writeln('Imprimindo lista...');
-        writeln('Quantidade: ', qtd);
         for i:= 1 to qtd do begin
-          write('Posicao: ', i, ' - ');
-          carta_escrever(arr[i])
+          write(' [', i, '] - ');
+          carta_escrever(arr[i]);
+          write(' ');
         end;
       end;
     end;
