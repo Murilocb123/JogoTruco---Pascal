@@ -2,6 +2,7 @@ unit util;
 interface
 
 function aleatorioEntre(min, max: integer): integer;
+function inverte_jogador(jogador: string):string;
 function percentPerOption(porcent:integer):integer;
 
 implementation
@@ -22,6 +23,14 @@ implementation
               percentPerOption := 1
       end else
           percentPerOption := 0;
+  end;
+
+  function inverte_jogador(jogador: string):string;
+  begin
+    if (jogador = 'USUARIO') then
+      inverte_jogador:= 'MAQUINA'
+    else
+      inverte_jogador:= 'USUARIO';
   end;
 
 end.

@@ -12,19 +12,20 @@ interface
 
 
 
-  
-  
+
+
     procedure pontuacao_inicializar(pontuacao:tPontuacao); // PROCEDIMENTO zera a pontuacao
     function pontuacao_tem_vencedor(pontuacao:tPontuacao):boolean; // FUNCAO TEM VENCEDOR true ou false
     function pontuacao_vencedor(pontuacao:tPontuacao): string; //FUNCAO VENCEDOR string
     procedure pontuacao_mostrar_pontos(pontuacao:tPontuacao); //PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
-	  procedure pontuacao_marcar_pontos(pontuacao:tPontuacao;pontuador:string;valor:integer); //PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3} 
+	  procedure pontuacao_marcar_pontos(pontuacao:tPontuacao;pontuador:string;valor:integer); //PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3}
     function pontuacao_ultimo_ganhador(pontuacao:tPontuacao):string; //ULTIMO GANHADOR (chamada no marcarPontos)
     function pontuacao_escura(pontuacao:tPontuacao):boolean; //COMANDO ESCURA (quando ambos tiverem 11 pontos)
-   
-    
-	
-    
+    function pontuacao_quanto_falta_pro_perderdor_ganhar(pontuacao: tPontuacao): integer; // Retorna quantos pontos restam pro perdedor ganhar
+
+
+
+
 
 implementation
 
@@ -36,7 +37,7 @@ begin
         pontos_maquina:= 0;
     end;
 end;
-		    
+
 // FUNCAO TEM VENCEDOR true ou false
 function pontuacao_tem_vencedor(var pontuacao: tPontuacao):boolean;
 begin
@@ -45,32 +46,32 @@ begin
 				    pontuacao_tem_vencedor:= true
 				else
 				    pontuacao_tem_vencedor:= false;
-		end;		    
+		end;
 end;
-									
+
 //FUNCAO VENCEDOR string
 function pontuacao_vencedor(var pontuacao: tPontuacao): string;
 begin
-    with pontuacao do begin  
+    with pontuacao do begin
         if pontos_usuario >= 12 then
           begin
 				     pontuacao_vencedor:='USUARIO';
 				     pontuacao_tem_vencedor(pontuacao);
-				  end   
+				  end
 		    else if pontos_maquina >= 12 then
 		           begin
 							    pontuacao_vencedor:='MAQUINA';
 									pontuacao_tem_vencedor(pontuacao);
 								end
 						 else
-						    pontuacao_vencedor:='NINGUEM';	
-						    pontuacao_tem_vencedor(pontuacao);	  						      		
-    end;							
+						    pontuacao_vencedor:='NINGUEM';
+						    pontuacao_tem_vencedor(pontuacao);
+    end;
 end;
 //PROCEDIMENTO MOSTRAR PONTUACAO SALVA NO REGISTRO
 procedure pontuacao_mostrar_pontos(var pontuacao:tPontuacao);
 begin
-  with  pontuacao  do begin	
+  with  pontuacao  do begin
     writeln(' ');
     writeln(' USUARIO: ',pontos_usuario,' ');
     writeln(' ');
@@ -82,34 +83,28 @@ end;
 function pontuacao_ultimo_ganhador(var pontuacao:tPontuacao):string;
 
 begin
-  with pontuacao do begin   
+  with pontuacao do begin
       if (pontos_ultimo_vencedor = 'MAQUINA') or ( pontos_ultimo_vencedor = 'USUARIO')then
         pontuacao_ultimo_ganhador := pontos_ultimo_vencedor
-     else 
-		   pontuacao_ultimo_ganhador := 'NINGUEM'; 
-	 end;			
+     else
+		   pontuacao_ultimo_ganhador := 'NINGUEM';
+	 end;
 end;
 
-//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3}  
+//PROCEDIMENTO MARCADOR DE PONTOS {atravez da variavel "valor" salva os pontos multiplicando por 3}
 procedure pontuacao_marcar_pontos(var pontuacao:tPontuacao; pontuador: string; valor: integer );
 begin
   with  pontuacao  do begin
-    
+
     if pontuador = 'USUARIO' then
     begin
-      if valor = 0 then
-      	pontos_usuario:=pontos_usuario+1
-      else if valor > 0 then
-      				pontos_usuario:= pontos_usuario + valor * 3;
-    end  			
+      pontos_usuario:= pontos_usuario + valor;
+    end
     else if pontuador = 'MAQUINA' then
     begin
-      if valor = 0 then
-      	 pontos_maquina:=pontos_maquina+1
-      else if valor > 0 then
-      				pontos_maquina:= pontos_maquina + valor * 3;
+      pontos_maquina:= pontos_maquina + valor;
     end;
-		 pontos_ultimo_vencedor:= pontuador;  
+		 pontos_ultimo_vencedor:= pontuador;
   end;
 end;
 
@@ -123,18 +118,26 @@ function pontuacao_escura(var pontuacao:tPontuacao) :boolean;
 							begin
 									writeln(' ');
 									writeln('-----------');
-									writeln('MAO DE ONZE');	
-									writeln('-----------'); 
+									writeln('MAO DE ONZE');
+									writeln('-----------');
 				          writeln(' ');
 				          pontuacao_escura:= true;
 				      end
 						else
 							begin
 									pontuacao_escura:=false;
-							end;	    
+							end;
 				end;
-	
-	
 	end;
-	
+
+function pontuacao_quanto_falta_pro_perderdor_ganhar(pontuacao: tPontuacao): integer;
+begin
+  with pontuacao do begin
+    if pontos_usuario > pontos_maquina then
+      pontuacao_quanto_falta_pro_perderdor_ganhar := 12 - pontos_maquina
+    else
+      pontuacao_quanto_falta_pro_perderdor_ganhar := 12 - pontos_usuario;
+  end;
+end;
+
 end.

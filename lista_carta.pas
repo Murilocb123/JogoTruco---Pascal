@@ -24,7 +24,7 @@ implementation
     begin
       with lista do begin
         for i:= 1 to qtd do begin
-          write(' [', i, '] - ');
+          write(' [', i, '] ');
           carta_escrever(arr[i]);
           write(' ');
         end;
@@ -143,7 +143,7 @@ implementation
         end;
       end;
     end;
-    
+
   procedure inicializarListaCarta(var lista: tListaCarta; tamanho: integer);
   begin
     with lista do begin

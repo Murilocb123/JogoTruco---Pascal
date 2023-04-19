@@ -4,6 +4,7 @@ uses
     crt,views,baralho,carta,pilha_carta,lista_carta,rodada,pontuacao,util;
     procedure views_menu_main();
     procedure views_authors();
+    procedure views_resposta_truco(pode_aumentar: boolean);
     procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: tPontuacao;ultima_carta:tCarta);
     procedure views_mostra_ganhador_jogada(nome:string);
     procedure views_mostra_carta_jogada(carta:Tcarta; nome:String);
@@ -33,6 +34,7 @@ procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: 
          rodada_mostrar_resultado(rodada);
          writeln('---------Informacoes da rodada-----------');
          writeln(' Manilha: ',rodada.manilha);
+         writeln(' Peso da rodada: ', rodada_pegar_peso_truco(rodada));
          write(' Ultima Jogada: ');
          if not(ultima_carta.poder = 0 ) then
             carta_escrever(ultima_carta);
@@ -47,23 +49,36 @@ procedure views_mostra_ganhador_jogada( nome:string);
 begin
     Writeln('-------------Resultado da Jogada---------------');
     if not(nome = 'EMPACHE') then
-        writeln('              ',nome,'                      ')   
+        writeln('              ',nome,'                      ')
     else
         writeln('              Empachou')
 end;
 
 procedure views_mostra_carta_jogada(carta:Tcarta; nome:String);
-begin 
+begin
     write('Carta jogada pelo(a) ',nome,': ');
     carta_escrever(carta);
     writeln();
 end;
 
 procedure views_inicio_rodada();
-begin 
+begin
     writeln('------------------------------------------------------------');
     writeln('------------------- Nova rodada iniciada -------------------');
     writeln('------------------------------------------------------------');
+end;
+
+procedure views_resposta_truco(pode_aumentar: boolean);
+begin
+  writeln('');
+  writeln('---------------------------TRUCO---------------------------');
+  writeln('A maquina pediu truco!');
+  write(' [1]- Aceitar');
+  write(' [2]- Correr');
+  if (pode_aumentar) then
+    write(' [3]- Aumentar');
+  writeln();
+  writeln('------------------------------------------------------------');
 end;
 
 
