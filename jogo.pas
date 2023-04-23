@@ -91,7 +91,10 @@ begin
       // Laço de repetição da rodada (melhor de 3);
       while not (rodada_finalizada(rodada)) do begin
         jogada_ganhador:= jogada_iniciar_jogada(rodada, mao_usuario, mao_maquina,pontuacao);
-        rodada_adicionar_resultado(rodada, jogada_ganhador);
+        if not(jogada_ganhador = 'ARREGAO') then
+            rodada_adicionar_resultado(rodada, jogada_ganhador)
+        else
+            rodada_adicionar_resultado_final(rodada);
         clrscr();
         views_mostra_ganhador_jogada(jogada_ganhador);
         delay(1500);

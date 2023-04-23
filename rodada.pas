@@ -11,6 +11,7 @@ uses carta, util, pontuacao;
     peso_truco: integer;
     peso_maximo_truco: integer;
     ultimo_aumentou_truco: String;
+    arregao: String;
   end;
 
   function rodada_jogador_ganhou(rodada: tRodada; jogador: string): boolean;
@@ -19,6 +20,8 @@ uses carta, util, pontuacao;
   function rodada_quem_comeca(rodada: tRodada): string;
   procedure rodada_inicializar(var rodada: tRodada; pontuacao: tPontuacao);
   procedure rodada_adicionar_resultado(rodada: tRodada; resultado: string);
+  procedure rodada_adicionar_resultado_final(var rodada: tRodada);
+  procedure rodada_adicionar_arregao(var rodada: tRodada; arre:string);
   procedure rodada_mostrar_resultado(rodada: tRodada);
   procedure rodada_adicionar_manilha(rodada: tRodada; manilha_valor:integer);
   function rodada_pode_aumentar_truco(rodada: tRodada): boolean;
@@ -40,6 +43,7 @@ implementation
       peso_truco:= 1;
       peso_maximo_truco:= (pontuacao_quanto_falta_pro_perderdor_ganhar(pontuacao));
       ultimo_aumentou_truco:= 'NINGUEM';
+      arregao:='NINGUEM';
     end;
   end;
 
@@ -129,10 +133,25 @@ begin
   end;
 end;
 
-  procedure rodada_adicionar_resultado(var rodada: tRodada; resultado: string);
+procedure rodada_adicionar_resultado(var rodada: tRodada; resultado: string);
   begin
     with rodada do begin
       jogadas_vencedor[jogada_atual]:= resultado;
+      inc(jogada_atual);
+    end;
+  end;
+
+procedure rodada_adicionar_resultado_final(var rodada: tRodada);
+var vencedor:string;
+begin
+    with rodada do begin
+      if (arregao ='USUARIO') then
+        vencedor:= 'MAQUINA'
+      else
+        vencedor:='USUARIO';
+      jogadas_vencedor[1]:= vencedor;
+      jogadas_vencedor[2]:= vencedor;
+      jogadas_vencedor[3]:= vencedor;
       inc(jogada_atual);
     end;
   end;
@@ -189,6 +208,13 @@ end;
     with rodada do begin
       rodada_pegar_peso_truco:= peso_truco;
     end;
+  end;
+  
+  procedure rodada_adicionar_arregao(var rodada: tRodada; arre:string);
+  begin
+    with rodada do begin
+      arregao:= arre;
+    end
   end;
 
 end.
