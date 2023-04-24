@@ -50,14 +50,14 @@ begin
       //Fazer rodada terminar
     end else if (op = 3) then begin
       writeln(' ');
-      writeln(' Aceito!'); 
+      writeln(' Aceito!');
 //			writeln(' Aumentar');
       writeln(' ');
       rodada_aumentar_peso_truco(rodada, quem_pediu);
       jogada_pedir_truco(rodada, inverte_jogador(quem_pediu));
     end;
-          
-		delay(1500);	
+
+		delay(1500);
    end else begin
       writeln(quem_pediu, ' nao pode pedir truco!');
   end;
@@ -79,7 +79,7 @@ begin
       op:=bot_escolhe_acao(carta, pontuacao, mao_maquina);
     end;
 
-    if ((op = 4) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
+    if (((op = 4) or pontuacao_esta_mao_onze(pontuacao, inverte_jogador(jogador))) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
       if (jogador = 'MAQUINA') then
         clrscr();
         views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
@@ -148,8 +148,8 @@ begin
           cartaMaquina := removerDaListaCartaPorPosicao(op, mao_maquina);
 
           views_mostra_carta_jogada(cartaMaquina, 'MAQUINA');
-//          delay(2000);				
-						readkey;				 
+//          delay(2000);
+						readkey;
       end
     end else begin
       cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);

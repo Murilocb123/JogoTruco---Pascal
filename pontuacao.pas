@@ -22,6 +22,7 @@ interface
     function pontuacao_ultimo_ganhador(pontuacao:tPontuacao):string; //ULTIMO GANHADOR (chamada no marcarPontos)
     function pontuacao_escura(pontuacao:tPontuacao):boolean; //COMANDO ESCURA (quando ambos tiverem 11 pontos)
     function pontuacao_quanto_falta_pro_perderdor_ganhar(pontuacao: tPontuacao): integer; // Retorna quantos pontos restam pro perdedor ganhar
+    function pontuacao_esta_mao_onze(pontuacao: tPontuacao; jogador: string): boolean;
 
 
 
@@ -115,18 +116,9 @@ function pontuacao_escura(var pontuacao:tPontuacao) :boolean;
 	begin
 	      with pontuacao do begin
 	          if (pontos_usuario = 11) and (pontos_maquina = 11) then
-							begin
-									writeln(' ');
-									writeln('-----------');
-									writeln('MAO DE ONZE');
-									writeln('-----------');
-				          writeln(' ');
-				          pontuacao_escura:= true;
-				      end
+				      pontuacao_escura:= true
 						else
-							begin
-									pontuacao_escura:=false;
-							end;
+							pontuacao_escura:=false;
 				end;
 	end;
 
@@ -137,6 +129,20 @@ begin
       pontuacao_quanto_falta_pro_perderdor_ganhar := 12 - pontos_maquina
     else
       pontuacao_quanto_falta_pro_perderdor_ganhar := 12 - pontos_usuario;
+  end;
+end;
+
+function pontuacao_esta_mao_onze(pontuacao: tPontuacao; jogador: string): boolean;
+begin
+  with pontuacao do begin
+    if ( pontuacao_escura(pontuacao)) then
+      pontuacao_esta_mao_onze:= false
+    else begin
+      if (jogador = 'USUARIO') then
+        pontuacao_esta_mao_onze:= (pontos_usuario = 11)
+      else
+        pontuacao_esta_mao_onze:= (pontos_maquina = 11);
+    end;
   end;
 end;
 
