@@ -182,7 +182,7 @@ begin
   function rodada_jogador_pode_pedir_truco(rodada: tRodada; jogador: string):boolean;
   begin
     with rodada do begin
-      if (ultimo_aumentou_truco = jogador) then
+      if ((ultimo_aumentou_truco = jogador) or (peso_truco >= peso_maximo_truco)) then
         rodada_jogador_pode_pedir_truco:= false
       else
         rodada_jogador_pode_pedir_truco:= true;
@@ -209,7 +209,7 @@ begin
       rodada_pegar_peso_truco:= peso_truco;
     end;
   end;
-  
+
   procedure rodada_adicionar_arregao(var rodada: tRodada; arre:string);
   begin
     with rodada do begin

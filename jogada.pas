@@ -74,13 +74,12 @@ begin
     if ((op = 4) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
       if (jogador = 'MAQUINA') then
         clrscr();
-      views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
-      jogada_pedir_truco(rodada, jogador);
-      if not (rodada.arregao = 'NINGUEM') then begin
-         escolheu_op:= true;
-         op := 2;
-      end;
-
+        views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
+        jogada_pedir_truco(rodada, jogador);
+        if not (rodada.arregao = 'NINGUEM') then begin
+          escolheu_op:= true;
+          op := 2;
+        end;
     end else begin
       //Se foi escolhido uma opção que seja pedir truco, é validado se essa opção corresponde a uma carta do mao do jogador;
       if (jogador = 'USUARIO') then
@@ -113,7 +112,7 @@ end;
 function jogada_verifica_se_teve_arregao(var rodada:tRodada):boolean;
 begin
   with rodada do begin
-  if not (arregao = 'NINGUEM') then 
+  if not (arregao = 'NINGUEM') then
     jogada_verifica_se_teve_arregao:=true
   else
     jogada_verifica_se_teve_arregao:=false;
@@ -131,8 +130,8 @@ begin
     op:=0;
     quemComeca := rodada_quem_comeca(rodada);
     op:= jogada_escolhe_carta(quemComeca, rodada, mao_usuario, mao_maquina, pontuacao, carta);
-  
-  if not((jogada_verifica_se_teve_arregao(rodada))) then 
+
+  if not((jogada_verifica_se_teve_arregao(rodada))) then
     if (quemComeca = 'USUARIO') then begin
       cartaUsuario:= removerDaListaCartaPorPosicao(op, mao_usuario);
 
@@ -146,11 +145,11 @@ begin
     end else begin
       cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);
       op:= jogada_escolhe_carta('USUARIO', rodada, mao_usuario, mao_maquina, pontuacao, cartaMaquina);
-      if NOT(jogada_verifica_se_teve_arregao(rodada)) then 
+      if NOT(jogada_verifica_se_teve_arregao(rodada)) then
         cartaUsuario := removerDaListaCartaPorPosicao(op, mao_usuario);
     end;
-    
-    if NOT(jogada_verifica_se_teve_arregao(rodada)) then 
+
+    if NOT(jogada_verifica_se_teve_arregao(rodada)) then
       jogada_iniciar_jogada := jogada_verifica_carta_mais_forte(cartaUsuario,cartaMaquina)
     else
       jogada_iniciar_jogada:= 'ARREGAO';
