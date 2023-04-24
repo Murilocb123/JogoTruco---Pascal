@@ -13,25 +13,30 @@ uses
 implementation
     procedure views_menu_main();
     begin
-        Writeln('---------------------------------');
+        Writeln('-----------------------------------');
         Writeln('[1] - Start Game');
         Writeln('[2] - Authors');
-        Writeln('[3] - Mostrar da partida anterior');
+        Writeln('[3] - Resultado da partida anterior');
         Writeln('[4] - Exit');
         Writeln('[5] - Realizar teste');
-        Writeln('---------------------------------');
+        Writeln('-----------------------------------');
+        write(' ');
     end;
     procedure views_authors();
     begin
-        writeln('Murilo feito que doi, Alison gatão e Gersu tem tantas entradas que parece a 470')
+        writeln('----------------------------------------------------------------------------------');
+        writeln(' Murilo feio que doi, Alison gatao e Gersu tem tantas entradas que parece a 470 ');
+        writeln('----------------------------------------------------------------------------------');
     end;
 
 procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: tPontuacao; ultima_carta:tCarta); // add parametros
     begin
-         writeln('--------------Placar partida-------------');
-         writeln('   | USUARIO: ',pontuacao.pontos_usuario,' | MAQUINA: ',pontuacao.pontos_maquina,' |');
-         writeln('---------Placar da rodada atual---------- ');
+         writeln('--------------Placar partida--------------');
+         writeln('      | USUARIO: ',pontuacao.pontos_usuario,'  |   MAQUINA: ',pontuacao.pontos_maquina,' |');
+         writeln('---------Placar da rodada atual-----------');
+         writeln(' ');
          rodada_mostrar_resultado(rodada);
+         writeln(' ');
          writeln('---------Informacoes da rodada-----------');
          writeln(' Manilha: ',rodada.manilha);
          writeln(' Peso da rodada: ', rodada_pegar_peso_truco(rodada));
@@ -39,26 +44,33 @@ procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: 
          if not(ultima_carta.poder = 0 ) then
             carta_escrever(ultima_carta);
          writeln();
-         writeln('------------Escolha uma carta------------');
+         writeln(' ');
+         writeln('-------------------------------Escolha uma carta-------------------------------');
          escreverListaCarta(mao_usuario);
+         writeln(' ');
          writeln();
-         writeln('-------------Outras acoes---------------');
+         writeln('--------------------------------Outras acoes-----------------------------------');	 
          writeln(' [4]- pedir truco.');
+         writeln(' ');
+         write(' ');
     end;
 procedure views_mostra_ganhador_jogada( nome:string);
 begin
     Writeln('-------------Resultado da Jogada---------------');
     if not(nome = 'EMPACHE') then
-        writeln('              ',nome,'                      ')
-    else
-        writeln('              Empachou')
+        writeln('                    ',nome,'                      ')
+    else                           
+        writeln('                   EMPACHOU')
 end;
 
 procedure views_mostra_carta_jogada(carta:Tcarta; nome:String);
 begin
+    clrscr;
     write('Carta jogada pelo(a) ',nome,': ');
     carta_escrever(carta);
     writeln();
+		gotoxy(2,10);
+		write('Aperte qualquer tecla para continuar.'); 
 end;
 
 procedure views_inicio_rodada();
@@ -72,13 +84,15 @@ procedure views_resposta_truco(pode_aumentar: boolean);
 begin
   writeln('');
   writeln('---------------------------TRUCO---------------------------');
-  writeln('A maquina pediu truco!');
+  writeln(' A maquina pediu truco!');
+  writeln(' ');
   write(' [1]- Aceitar');
   write(' [2]- Correr');
   if (pode_aumentar) then
     write(' [3]- Aumentar');
   writeln();
   writeln('------------------------------------------------------------');
+  write(' ');
 end;
 
 

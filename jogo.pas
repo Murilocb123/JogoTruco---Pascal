@@ -134,7 +134,7 @@ Begin
         else if(op_main_menu = 3) then
             pontuacao_mostrar_pontos(pontuacao_anterior)
         else if(op_main_menu = 4) then
-            Writeln('Adeus Jogador')
+            Writeln(' Adeus Jogador')
         else if(op_main_menu = 5) then
             teste();
         readkey();

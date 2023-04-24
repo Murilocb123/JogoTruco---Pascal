@@ -15,7 +15,9 @@ var pode_aumentar: boolean;
     op, op_maxima: integer;
     quem_responde: string;
 begin
-  writeln('jogada_pedir_truco iniciado pelo ', quem_pediu);
+//  writeln('jogada_pedir_truco iniciado pelo ', quem_pediu);
+    writeln(' ',quem_pediu,' pediu TRUCO ');
+    writeln(' ');
 
   if (rodada_jogador_pode_pedir_truco(rodada, quem_pediu)) then begin
     pode_aumentar:= rodada_pode_aumentar_truco(rodada);
@@ -38,20 +40,26 @@ begin
 
     if (op = 1) then begin
       rodada_aumentar_peso_truco(rodada, quem_pediu);
-      writeln('Truco aumentado!');
+      writeln(' ');
+//      writeln(' Truco aumentado!');
+        writeln(' Truco Aceito!');
     end else if (op = 2) then begin
-      writeln('Correr');
+      writeln(' ');
+      writeln(' Correr');
       rodada_adicionar_arregao(rodada, quem_responde)
       //Fazer rodada terminar
     end else if (op = 3) then begin
-      writeln('Aumentar');
+      writeln(' ');
+      writeln(' Aceito!'); 
+//			writeln(' Aumentar');
+      writeln(' ');
       rodada_aumentar_peso_truco(rodada, quem_pediu);
       jogada_pedir_truco(rodada, inverte_jogador(quem_pediu));
     end;
-
-    delay(1000);
-  end else begin
-      writeln(quem_pediu, ' não pode pedir truco!');
+          
+		delay(1500);	
+   end else begin
+      writeln(quem_pediu, ' nao pode pedir truco!');
   end;
 end;
 
@@ -138,9 +146,10 @@ begin
       op:= jogada_escolhe_carta('MAQUINA', rodada, mao_usuario, mao_maquina, pontuacao, cartaUsuario);
         if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
           cartaMaquina := removerDaListaCartaPorPosicao(op, mao_maquina);
-          clrscr();
+
           views_mostra_carta_jogada(cartaMaquina, 'MAQUINA');
-          delay(2000);
+//          delay(2000);				
+						readkey;				 
       end
     end else begin
       cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);
