@@ -24,9 +24,13 @@ implementation
     end;
     procedure views_authors();
     begin
+    		writeln(' ');
         writeln('----------------------------------------------------------------------------------');
         writeln(' Murilo feio que doi, Alison gatao e Gersu tem tantas entradas que parece a 470 ');
         writeln('----------------------------------------------------------------------------------');
+        gotoxy(60,20);
+        write('Merecemos um 10 :P ');
+       
     end;
 
 procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: tPontuacao; ultima_carta:tCarta); // add parametros
