@@ -4,10 +4,10 @@ uses
     crt,views,baralho,carta,pilha_carta,lista_carta,rodada,pontuacao,util;
     procedure views_menu_main();
     procedure views_authors();
-    procedure views_resposta_truco(pode_aumentar: boolean);
+    procedure views_resposta_truco(pode_aumentar: boolean; acao:string);
     procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: tPontuacao;ultima_carta:tCarta);
     procedure views_mostra_ganhador_jogada(nome:string);
-    procedure views_mostra_carta_jogada(carta:Tcarta; nome:String);
+    procedure views_mostra_carta_jogada(cartaUsuario, cartaMaquina:Tcarta);
     procedure views_inicio_rodada();
 
 implementation
@@ -34,43 +34,50 @@ procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: 
          writeln('--------------Placar partida--------------');
          writeln('      | USUARIO: ',pontuacao.pontos_usuario,'  |   MAQUINA: ',pontuacao.pontos_maquina,' |');
          writeln('---------Placar da rodada atual-----------');
-         writeln(' ');
          rodada_mostrar_resultado(rodada);
-         writeln(' ');
          writeln('---------Informacoes da rodada-----------');
          writeln(' Manilha: ',rodada.manilha);
          writeln(' Peso da rodada: ', rodada_pegar_peso_truco(rodada));
-         write(' Ultima Jogada: ');
-         if not(ultima_carta.poder = 0 ) then
-            carta_escrever(ultima_carta);
-         writeln();
          writeln(' ');
+        if not(ultima_carta.poder = 0 ) then begin
+          write(' Maquina jogou: ');
+          carta_escrever(ultima_carta);
+          writeln(' ');
+          writeln(' ');
+        end;
          writeln('-------------------------------Escolha uma carta-------------------------------');
          escreverListaCarta(mao_usuario);
          writeln(' ');
          writeln();
-         writeln('--------------------------------Outras acoes-----------------------------------');	 
-         writeln(' [4]- pedir truco.');
+         if (rodada_jogador_pode_pedir_truco(rodada,'USUARIO')) then begin
+          writeln('--------------------------------Outras acoes-----------------------------------');
+          writeln(' [4]- pedir truco.');
+         end;
          writeln(' ');
          write(' ');
     end;
 procedure views_mostra_ganhador_jogada( nome:string);
 begin
+    writeln();
     Writeln('-------------Resultado da Jogada---------------');
     if not(nome = 'EMPACHE') then
         writeln('                    ',nome,'                      ')
-    else                           
-        writeln('                   EMPACHOU')
+    else
+        writeln('                   EMPACHOU');
+    writeln();
+    writeln('Pressione qualquer tecla para continuar...');
+
 end;
 
-procedure views_mostra_carta_jogada(carta:Tcarta; nome:String);
+procedure views_mostra_carta_jogada(cartaUsuario, cartaMaquina:Tcarta);
 begin
-    clrscr;
-    write('Carta jogada pelo(a) ',nome,': ');
-    carta_escrever(carta);
+    Writeln('-------------------Cartas---------------------');
+    write('Maquina: ');
+    carta_escrever(cartaMaquina);
     writeln();
-		gotoxy(2,10);
-		write('Aperte qualquer tecla para continuar.'); 
+    write('Usuario: ');
+    carta_escrever(cartaUsuario);
+    writeln();
 end;
 
 procedure views_inicio_rodada();
@@ -80,11 +87,11 @@ begin
     writeln('------------------------------------------------------------');
 end;
 
-procedure views_resposta_truco(pode_aumentar: boolean);
+procedure views_resposta_truco(pode_aumentar: boolean; acao:string);
 begin
   writeln('');
   writeln('---------------------------TRUCO---------------------------');
-  writeln(' A maquina pediu truco!');
+  writeln(' A maquina ', acao, '!');
   writeln(' ');
   write(' [1]- Aceitar');
   write(' [2]- Correr');

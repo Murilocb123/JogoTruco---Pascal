@@ -13,18 +13,16 @@ implementation
 procedure jogada_pedir_truco(var rodada: tRodada; quem_pediu: string);
 var pode_aumentar: boolean;
     op, op_maxima: integer;
-    quem_responde: string;
+    quem_responde, acao: string;
 begin
-//  writeln('jogada_pedir_truco iniciado pelo ', quem_pediu);
-    writeln(' ',quem_pediu,' pediu TRUCO ');
-    writeln(' ');
 
   if (rodada_jogador_pode_pedir_truco(rodada, quem_pediu)) then begin
     pode_aumentar:= rodada_pode_aumentar_truco(rodada);
     if (pode_aumentar) then op_maxima:= 3 else op_maxima:= 2;
 
     if (quem_pediu = 'MAQUINA') then begin
-      views_resposta_truco(pode_aumentar);
+      if (rodada_pegar_peso_truco(rodada) > 1) then acao:= 'aumentou' else acao:= 'pediu truco';
+      views_resposta_truco(pode_aumentar, acao);
     end;
 
 
@@ -40,17 +38,17 @@ begin
 
     if (op = 1) then begin
       rodada_aumentar_peso_truco(rodada, quem_pediu);
-      writeln(' ');
+        writeln(' ');
 //      writeln(' Truco aumentado!');
-        writeln(' Truco Aceito!');
+        writeln(inverte_jogador(quem_pediu), ' - Truco Aceito!');
     end else if (op = 2) then begin
       writeln(' ');
-      writeln(' Correr');
+      writeln(inverte_jogador(quem_pediu), ' - Correu!');
       rodada_adicionar_arregao(rodada, quem_responde)
       //Fazer rodada terminar
     end else if (op = 3) then begin
       writeln(' ');
-      writeln(' Aceito!');
+      writeln(inverte_jogador(quem_pediu), ' - Aumentou!');
 //			writeln(' Aumentar');
       writeln(' ');
       rodada_aumentar_peso_truco(rodada, quem_pediu);
@@ -69,9 +67,10 @@ var op, max_op_carta: integer;
 begin
   escolheu_op:= false;
   while(not escolheu_op ) do begin
+    clrscr();
+
     // Se for o usuario, mostra a view e da um read na opcao;
     if (jogador = 'USUARIO') then begin
-      clrscr();
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
       read(op);
     end else begin
@@ -81,7 +80,6 @@ begin
 
     if (((op = 4) or pontuacao_esta_mao_onze(pontuacao, inverte_jogador(jogador))) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
       if (jogador = 'MAQUINA') then
-        clrscr();
         views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
         jogada_pedir_truco(rodada, jogador);
         if not (rodada.arregao = 'NINGUEM') then begin
@@ -132,7 +130,7 @@ end;
 function jogada_iniciar_jogada(var rodada:tRodada;var mao_usuario, mao_maquina:tListaCarta; pontuacao: tPontuacao):String;
 var op, i:integer;
     carta, cartaUsuario, cartaMaquina: tCarta;
-    quemComeca:string;
+    quemComeca, ganhador:string;
     escolheu_op: boolean;
 begin
     op:=0;
@@ -146,10 +144,6 @@ begin
       op:= jogada_escolhe_carta('MAQUINA', rodada, mao_usuario, mao_maquina, pontuacao, cartaUsuario);
         if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
           cartaMaquina := removerDaListaCartaPorPosicao(op, mao_maquina);
-
-          views_mostra_carta_jogada(cartaMaquina, 'MAQUINA');
-//          delay(2000);
-						readkey;
       end
     end else begin
       cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);
@@ -158,9 +152,11 @@ begin
         cartaUsuario := removerDaListaCartaPorPosicao(op, mao_usuario);
     end;
 
-    if NOT(jogada_verifica_se_teve_arregao(rodada)) then
-      jogada_iniciar_jogada := jogada_verifica_carta_mais_forte(cartaUsuario,cartaMaquina)
-    else
+    if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
+      clrscr;
+      views_mostra_carta_jogada(cartaUsuario, cartaMaquina);
+      jogada_iniciar_jogada := jogada_verifica_carta_mais_forte(cartaUsuario,cartaMaquina);
+    end else
       jogada_iniciar_jogada:= 'ARREGAO';
 
     // Retorna o ganhador;

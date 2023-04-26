@@ -159,11 +159,14 @@ begin
   procedure rodada_mostrar_resultado(rodada: tRodada);
   begin
     with rodada do begin
-      writeln('1 - ', jogadas_vencedor[1]);
-      writeln('2 - ', jogadas_vencedor[2]);
-      writeln('3 - ', jogadas_vencedor[3]);
-      writeln(' ');
-      writeln('Jogada atual: ', jogada_atual);
+      if (arregao <> 'NINGUEM') then begin
+        writeln(arregao, ' correu!')
+      end else begin
+        writeln('1 - ', jogadas_vencedor[1]);
+        writeln('2 - ', jogadas_vencedor[2]);
+        writeln('3 - ', jogadas_vencedor[3]);
+        writeln(' ');
+      end;
     end;
   end;
 
