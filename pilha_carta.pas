@@ -2,91 +2,91 @@ unit pilha_carta;
 
 interface
 uses carta;
-  const pilhaMaxSize = 5000;
+const pilhaMaxSize = 5000;
 
-  type
-    tPilhaCarta = record
-      arr: array[1..pilhaMaxSize] of tCarta;
-      qtd: integer;
-      max: integer;
-    end;
+type
+tPilhaCarta = record
+  arr: array[1..pilhaMaxSize] of tCarta;
+  qtd: integer;
+  max: integer;
+end;
 
-  procedure escreverPilhaCarta(pilha: tPilhaCarta);
-  function removerDaPilhaCarta(var pilha: tPilhaCarta): tCarta;
-  function recuperarValorPilhaCarta(var pilha: tPilhaCarta): tCarta;
-  function recuperarValorPilhaCartaPorPosicao(posicao: integer; var pilha: tPilhaCarta): tCarta;
-  procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
-  procedure inicializarPilhaCarta(var pilha: tPilhaCarta; tamanho: integer);
+procedure escreverPilhaCarta(pilha: tPilhaCarta);
+function removerDaPilhaCarta(var pilha: tPilhaCarta): tCarta;
+function recuperarValorPilhaCarta(var pilha: tPilhaCarta): tCarta;
+function recuperarValorPilhaCartaPorPosicao(posicao: integer; var pilha: tPilhaCarta): tCarta;
+procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
+procedure inicializarPilhaCarta(var pilha: tPilhaCarta; tamanho: integer);
 
 implementation
-  //Procedimentos
-  procedure escreverPilhaCarta(pilha: tPilhaCarta);
-    var i: integer;
-    begin
-      with pilha do begin
-        writeln();
-        writeln('Imprimindo pilha...');
-        writeln('Quantidade: ', qtd);
-        for i:= 1 to qtd do begin
-          write('Posicao: ', i, ' - ');
-          carta_escrever(arr[i])
-        end;
-      end;
+//Procedimentos
+procedure escreverPilhaCarta(pilha: tPilhaCarta);
+var i: integer;
+begin
+  with pilha do begin
+    writeln();
+    writeln('Imprimindo pilha...');
+    writeln('Quantidade: ', qtd);
+    for i:= 1 to qtd do begin
+      write('Posicao: ', i, ' - ');
+      carta_escrever(arr[i])
     end;
+  end;
+end;
 
-  function removerDaPilhaCarta(var pilha: tPilhaCarta): tCarta;
-    begin
-      with pilha do begin
-        if (qtd = 0) then begin
-          writeln('A pilha esta vazia');
-        end else begin
-          removerDaPilhaCarta:= arr[qtd];
-          dec(qtd);
-        end;
-      end;
+function removerDaPilhaCarta(var pilha: tPilhaCarta): tCarta;
+begin
+  with pilha do begin
+    if (qtd = 0) then begin
+      writeln('A pilha esta vazia');
+    end else begin
+      removerDaPilhaCarta:= arr[qtd];
+      dec(qtd);
     end;
-  function recuperarValorPilhaCarta(var pilha: tPilhaCarta): tCarta;
-    begin
-      with pilha do begin
-        if (qtd > 0) then begin
-          recuperarValorPilhaCarta:= arr[qtd];
-        end else begin
-          writeln('A pilha esta vazia')
-        end;
-      end;
+  end;
+end;
+function recuperarValorPilhaCarta(var pilha: tPilhaCarta): tCarta;
+begin
+  with pilha do begin
+    if (qtd > 0) then begin
+      recuperarValorPilhaCarta:= arr[qtd];
+    end else begin
+      writeln('A pilha esta vazia')
     end;
-  function recuperarValorPilhaCartaPorPosicao(posicao: integer; var pilha: tPilhaCarta): tCarta;
-    begin
-      with pilha do begin
-        if ((posicao > 0) and (posicao <= qtd)) then begin
-          recuperarValorPilhaCartaPorPosicao:= arr[posicao];
-        end else begin
-          writeln('Esta posicao nao existe na pilha')
-        end;
-      end;
+  end;
+end;
+function recuperarValorPilhaCartaPorPosicao(posicao: integer; var pilha: tPilhaCarta): tCarta;
+begin
+  with pilha do begin
+    if ((posicao > 0) and (posicao <= qtd)) then begin
+      recuperarValorPilhaCartaPorPosicao:= arr[posicao];
+    end else begin
+      writeln('Esta posicao nao existe na pilha')
     end;
+  end;
+end;
 
-  procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
-    begin
-      with pilha do begin
-        if (qtd = max) then begin
-          writeln('Pilha esta cheia!');
-        end else begin
-          inc(qtd);
-          arr[qtd]:= valor;
-        end;
-      end;
+procedure inserirNaPilhaCarta(valor: tCarta;var pilha: tPilhaCarta);
+begin
+  with pilha do begin
+    if (qtd = max) then begin
+      writeln('Pilha esta cheia!');
+    end else begin
+      inc(qtd);
+      arr[qtd]:= valor;
     end;
-  procedure inicializarPilhaCarta(var pilha: tPilhaCarta; tamanho: integer);
-    begin
-      with pilha do begin
-        if (tamanho > 0) then
-          max:= tamanho
-        else
-          max:= pilhaMaxSize;
-
-        qtd:= 0;
-      end;
-    end;
+  end;
+end;
+procedure inicializarPilhaCarta(var pilha: tPilhaCarta; tamanho: integer);
+begin
+  with pilha do begin
+    if (tamanho > 0) then
+    max:= tamanho
+    else
+    max:= pilhaMaxSize;
+    
+    qtd:= 0;
+  end;
+end;
 
 end.
