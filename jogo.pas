@@ -24,40 +24,6 @@ begin
     read(op);
 end;
 
-procedure teste();
-var baralho_pilha:tPilhaCarta;
-    ultimaCarta:tCarta;
-    rodada: tRodada;
-    mao_usuario,baralho_lista, mao_maquina:tListaCarta;
-    pontuacao: tPontuacao;
-    coringa, op:integer;
-    value:string;
-begin
-    //insira o codigo de teste
-    // baralho_lista := baralho_init();
-    // escreverListaCarta(baralho_lista);
-    // // escreverListaCarta(baralho_lista);
-    // // writeln('------------------------------');
-    //  baralho_pilha := baralho_embaralha(baralho_lista);
-    // // escreverPilhaCarta(baralho_pilha);
-    //  baralho_realiza_corte(20, baralho_pilha);
-    // // escreverPilhaCarta(baralho_pilha);
-    //  inicializarListaCarta(mao_usuario, 3);
-    //  inicializarListaCarta(mao_maquina, 3);
-    //  baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, coringa);
-    //  writeln(coringa);
-    //  escreverListaCarta(mao_usuario);
-    //  writeln('bot:');
-    //  escreverListaCarta(mao_maquina);
-    //  pontuacao_inicializar(pontuacao);
-    //  op:=bot_escolhe_acao(mao_usuario.arr[1], pontuacao, mao_maquina, 0);
-
-    //  writeln('bot escolheu:', op);
-    //  rodada_inicializar(rodada, pontuacao);
-    //  value := rodada_quem_comeca(rodada);
-    //  writeln(value);
-end;
-
 procedure inicio_partida();
 var manilha:integer;
     baralho_lista, mao_usuario,  mao_maquina: tListaCarta;
@@ -137,8 +103,6 @@ Begin
             pontuacao_mostrar_pontos(pontuacao_anterior)
         else if(op_main_menu = 4) then
             Writeln(' Adeus Jogador')
-        else if(op_main_menu = 5) then
-            teste();
         readkey();
     end;
 

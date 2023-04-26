@@ -18,7 +18,6 @@ implementation
         Writeln('[2] - Authors');
         Writeln('[3] - Resultado da partida anterior');
         Writeln('[4] - Exit');
-        Writeln('[5] - Realizar teste');
         Writeln('-----------------------------------');
         write(' ');
     end;
