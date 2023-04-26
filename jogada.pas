@@ -57,7 +57,7 @@ begin
 
 		delay(1500);
    end else begin
-      writeln(quem_pediu, ' nao pode pedir truco!');
+      writeln('O truco nao pode aumentar mais');
   end;
 end;
 

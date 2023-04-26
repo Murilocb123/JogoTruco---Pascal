@@ -116,7 +116,9 @@ begin
     writeln('Ganhador: ', pontuacao_vencedor(pontuacao));
     pontuacao_mostrar_pontos(pontuacao);
     pontuacao_anterior:= pontuacao;
-
+    delay(2000);
+    writeln('Pressione qualquer tecla para continuar...');
+    readkey();
 end;
 
 {Programa principal}

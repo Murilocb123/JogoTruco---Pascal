@@ -51,7 +51,10 @@ procedure views_menu_jogada(rodada:tRodada; mao_usuario:tListaCarta; pontuacao: 
          writeln();
          if (rodada_jogador_pode_pedir_truco(rodada,'USUARIO')) then begin
           writeln('--------------------------------Outras acoes-----------------------------------');
-          writeln(' [4]- pedir truco.');
+          if (rodada_pegar_peso_truco(rodada) > 1) then
+            writeln(' [4]- Aumentar.')
+          else
+            writeln(' [4]- pedir truco.');
          end;
          writeln(' ');
          write(' ');
