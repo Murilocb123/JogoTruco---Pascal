@@ -144,6 +144,18 @@ begin
       pontuacao_esta_mao_onze:= (pontos_maquina = 11);
     end;
   end;
+  function quem_esta_mao_onze (pontuacao:tPontuacao;): string;
+  begin
+    with pontuacao do begin
+      if (pontos_usuario = 11) then
+        quem_esta_mao_onze:= 'USUARIO'
+      else if (pontos_maquina = 11) then 
+             quem_esta_mao_onze:= 'MAQUINA'
+           else
+             quem_esta_mao_onze:='NINGUEM'    
+    end;
+  end;
+
 end;
 
 end.
