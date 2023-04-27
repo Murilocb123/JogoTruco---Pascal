@@ -99,10 +99,12 @@ begin
     
     if pontuador = 'USUARIO' then
     begin
-      pontos_usuario:= pontos_usuario + valor;
+      if not ((pontos_usuario+valor)>12) then
+        pontos_usuario:= pontos_usuario + valor;
     end
     else if pontuador = 'MAQUINA' then
     begin
+      if not ((pontos_maquina+valor)>12) then
       pontos_maquina:= pontos_maquina + valor;
     end;
     pontos_ultimo_vencedor:= pontuador;
