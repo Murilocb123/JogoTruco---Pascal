@@ -78,7 +78,7 @@ begin
       op:=bot_escolhe_acao(carta, pontuacao, mao_maquina);
     end;
     
-    if (((op = 4) or pontuacao_esta_mao_onze(pontuacao, inverte_jogador(jogador))) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
+    if (((op = 4) or pontuacao_esta_mao_onze(pontuacao, inverte_jogador(jogador))) and (rodada_jogador_pode_pedir_truco(rodada, jogador)) and not (pontuacao_esta_mao_onze(pontuacao, jogador))) then begin
       if (jogador = 'MAQUINA') then
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
       jogada_pedir_truco(rodada, jogador);
