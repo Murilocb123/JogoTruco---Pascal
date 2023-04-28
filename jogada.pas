@@ -10,14 +10,14 @@ function jogada_iniciar_jogada(rodada:tRodada; var mao_usuario, mao_maquina:tLis
 implementation
 
 
-procedure jogada_pedir_truco(var rodada: tRodada; quem_pediu: string);
+procedure jogada_pedir_truco(var rodada: tRodada; quem_pediu: string; pontuacao:tPontuacao);
 var pode_aumentar: boolean;
 op, op_maxima: integer;
 quem_responde, acao: string;
 begin
 
-  if (rodada_jogador_pode_pedir_truco(rodada, quem_pediu)) then begin
-    pode_aumentar:= rodada_pode_aumentar_truco(rodada);
+  if (rodada_jogador_pode_pedir_truco(rodada, quem_pediu, pontuacao)) then begin
+    pode_aumentar:= rodada_jogador_pode_aumentar(pontuacao, rodada, inverte_jogador(quem_pediu));
     if (pode_aumentar) then op_maxima:= 3 else op_maxima:= 2;
 
     if (quem_pediu = 'MAQUINA') then begin
@@ -52,7 +52,7 @@ begin
       //			writeln(' Aumentar');
       writeln(' ');
       rodada_aumentar_peso_truco(rodada, quem_pediu);
-      jogada_pedir_truco(rodada, inverte_jogador(quem_pediu));
+      jogada_pedir_truco(rodada, inverte_jogador(quem_pediu), pontuacao);
     end;
 
     delay(1500);
@@ -78,10 +78,10 @@ begin
       op:=bot_escolhe_acao(carta, pontuacao, mao_maquina);
     end;
 
-    if ((op = 4) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
+    if ((op = 4) and (rodada_jogador_pode_pedir_truco(rodada, jogador, pontuacao))) then begin
       if (jogador = 'MAQUINA') then
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
-      jogada_pedir_truco(rodada, jogador);
+      jogada_pedir_truco(rodada, jogador, pontuacao);
       if not (rodada.arregao = 'NINGUEM') then begin
         escolheu_op:= true;
         op := 2;
@@ -139,7 +139,7 @@ begin
   if (quem_esta_mao_onze <> 'NINGUEM') then begin
     if (quem_esta_mao_onze = 'USUARIO') then
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
-    jogada_pedir_truco(rodada, inverte_jogador(quem_esta_mao_onze));
+    jogada_pedir_truco(rodada, inverte_jogador(quem_esta_mao_onze), pontuacao);
   end;
   clrscr;
 

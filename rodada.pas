@@ -27,9 +27,8 @@ procedure rodada_adicionar_manilha(rodada: tRodada; manilha_valor:integer);
 function rodada_pode_aumentar_truco(rodada: tRodada): boolean;
 procedure rodada_aumentar_peso_truco(var rodada: tRodada; quem_aumentou: string);
 function rodada_pegar_peso_truco(rodada: tRodada): integer;
-function rodada_jogador_pode_pedir_truco(rodada: tRodada; jogador: string):boolean;
-
-
+function rodada_jogador_pode_pedir_truco(rodada: tRodada; jogador: string; pontuacao:tPontuacao):boolean;
+function rodada_jogador_pode_aumentar(pontuacao:tPontuacao; rodada:tRodada; quem_pediu:String): boolean;
 implementation
 
 procedure rodada_inicializar(var rodada: tRodada; pontuacao: tPontuacao);
@@ -183,10 +182,10 @@ begin
   end;
 end;
 
-function rodada_jogador_pode_pedir_truco(rodada: tRodada; jogador: string):boolean;
+function rodada_jogador_pode_pedir_truco(rodada: tRodada; jogador: string; pontuacao:tPontuacao):boolean;
 begin
   with rodada do begin
-    if ((ultimo_aumentou_truco = jogador) or (peso_truco >= peso_maximo_truco)) then
+    if ((ultimo_aumentou_truco = jogador) or (peso_truco >= peso_maximo_truco) or not (rodada_jogador_pode_aumentar(pontuacao,rodada,jogador))) then
     rodada_jogador_pode_pedir_truco:= false
     else
     rodada_jogador_pode_pedir_truco:= true;
@@ -220,6 +219,18 @@ begin
   with rodada do begin
     arregao:= arre;
   end
+end;
+
+function rodada_jogador_pode_aumentar(pontuacao:tPontuacao; rodada:tRodada; quem_pediu:String): boolean;
+var retorno:boolean;
+begin
+  with rodada do begin
+    if (quem_pediu = 'USUARIO') then
+      retorno:= ((pontuacao.pontos_usuario+rodada.peso_truco) < 11) 
+    else  
+      retorno:= ((pontuacao.pontos_maquina+rodada.peso_truco) < 11);
+    rodada_jogador_pode_aumentar:= retorno;
+  end;
 end;
 
 end.

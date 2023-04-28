@@ -52,7 +52,7 @@ begin
   escreverListaCarta(mao_usuario);
   writeln(' ');
   writeln();
-  if (rodada_jogador_pode_pedir_truco(rodada,'USUARIO')) then begin
+  if (rodada_jogador_pode_pedir_truco(rodada,'USUARIO',pontuacao)) then begin
     writeln('--------------------------------Outras acoes-----------------------------------');
     if (rodada_pegar_peso_truco(rodada) > 1) then
     writeln(' [4]- Aumentar.')

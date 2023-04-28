@@ -37,10 +37,6 @@ begin
 
   baralho_lista := baralho_init();
   pontuacao_inicializar(pontuacao);
-  pontuacao_marcar_pontos(pontuacao, 'USUARIO', 10);
-  pontuacao_marcar_pontos(pontuacao, 'MAQUINA', 11);
-
-
   // Laço de repetição principal, cada iteração é uma rodada, até alguem vencer o jogo.
   while (not(pontuacao_tem_vencedor(pontuacao))) do begin
     // Limpa a tela e motra a pontuacao atual
