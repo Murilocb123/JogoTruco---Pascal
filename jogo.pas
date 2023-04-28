@@ -34,17 +34,20 @@ rodada_ganhador, jogada_ganhador: string;
 i, j:integer;
 begin
   writeln('Inicio da partida.');
-  
+
   baralho_lista := baralho_init();
   pontuacao_inicializar(pontuacao);
-  
+  pontuacao_marcar_pontos(pontuacao, 'USUARIO', 10);
+  pontuacao_marcar_pontos(pontuacao, 'MAQUINA', 11);
+
+
   // Laço de repetição principal, cada iteração é uma rodada, até alguem vencer o jogo.
   while (not(pontuacao_tem_vencedor(pontuacao))) do begin
     // Limpa a tela e motra a pontuacao atual
     clrscr();
-    
+
     views_inicio_rodada();
-    
+
     // Inicializa o baralho e as mãos dos jogadores
     rodada_inicializar(rodada, pontuacao);
     baralho_pilha := baralho_embaralha(baralho_lista);
@@ -53,7 +56,7 @@ begin
     inicializarListaCarta(mao_maquina, 3);
     baralho_distrubui_cartas(mao_usuario,  mao_maquina, baralho_pilha, manilha);
     rodada_adicionar_manilha(rodada, manilha);
-    
+
     // Laço de repetição da rodada (melhor de 3);
     while not (rodada_finalizada(rodada)) do begin
       jogada_ganhador:= jogada_iniciar_jogada(rodada, mao_usuario, mao_maquina,pontuacao);
@@ -66,13 +69,13 @@ begin
       readkey();
       clrscr();
     end;
-    
+
     // Rodada finalizada, mostra os resultados e marca na pontuacao global.
     writeln('Rodada finalizada, resultado: ');
     rodada_mostrar_resultado(rodada);
     rodada_ganhador:= rodada_jogador_ganhador(rodada);
     writeln('Vencedor: ', rodada_ganhador);
-    
+
     if (rodada_ganhador <> 'NINGUEM') then
     pontuacao_marcar_pontos(pontuacao, rodada_ganhador, rodada_pegar_peso_truco(rodada));
     delay(2000);
@@ -105,5 +108,5 @@ Begin
     Writeln(' Adeus Jogador');
     readkey();
   end;
-  
+
 End.

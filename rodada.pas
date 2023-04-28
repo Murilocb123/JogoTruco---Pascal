@@ -53,16 +53,16 @@ begin
   ganhou:= false;
   // Sequencia de possiveis combinações para tal jogador ganhar;
   with rodada do begin
-    
+
     {Possiveis situacoes de vencimento:
     Combinação 1	Combinação 2	Combinação 3	Combinação 4	Combinação 5 Combinacao 6 Combinacao 7 Combinacao 8
     JOGADOR	      JOGADOR	      JOGADOR	      EMPACHE	      MAQUINA      EMPACHE      EMPACHE      JOGADOR
     JOGADOR	      EMPACHE	      MAQUINA	      JOGADOR	      JOGADOR      EMPACHE      EMPACHE      MAQUINA
     JOGADOR                     JOGADOR      JOGADOR      EMPACHE      EMPACHE
-    
+
     Venceu!	      Venceu!	      Venceu!	      Venceu!	      Venceu!      Venceu!      Ninguem      Venceu!
     }
-    
+
     if ((jogadas_vencedor[1] = jogador) and (jogadas_vencedor[2] = jogador) ) then //Combincao 1
     ganhou:= true
     else if ((jogadas_vencedor[1] = jogador) and (jogadas_vencedor[2] = 'EMPACHE')) then //Combinacao 2
@@ -79,7 +79,7 @@ begin
     ganhou:= false
     else if ((jogadas_vencedor[1] = jogador) and (jogadas_vencedor[3] = 'EMPACHE')) then //Combinacao 7
     ganhou:= true
-    
+
   end;
   rodada_jogador_ganhou:= ganhou;
 end;
@@ -107,7 +107,7 @@ begin
     while ( (i > 0) and ((jogadas_vencedor[i] = '' ) or (jogadas_vencedor[i] = 'EMPACHE'))) do begin
       dec(i)
     end;
-    
+
     if (i >= 1 ) then
     if (jogadas_vencedor[i] = 'EMPACHE' ) then
     rodada_quem_comeca:=ultimo_comecou
@@ -202,7 +202,8 @@ begin
     peso_truco:= peso_truco + 3;
     if (peso_truco > 12) then
     peso_truco:= 12;
-    
+
+    arregao:= 'NINGUEM';
     ultimo_aumentou_truco:= quem_aumentou;
   end;
 end;

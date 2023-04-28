@@ -15,17 +15,17 @@ var pode_aumentar: boolean;
 op, op_maxima: integer;
 quem_responde, acao: string;
 begin
-  
+
   if (rodada_jogador_pode_pedir_truco(rodada, quem_pediu)) then begin
     pode_aumentar:= rodada_pode_aumentar_truco(rodada);
     if (pode_aumentar) then op_maxima:= 3 else op_maxima:= 2;
-    
+
     if (quem_pediu = 'MAQUINA') then begin
       if (rodada_pegar_peso_truco(rodada) > 1) then acao:= 'aumentou' else acao:= 'pediu truco';
       views_resposta_truco(pode_aumentar, acao);
     end;
-    
-    
+
+
     while (( op < 1) or (op > op_maxima)) do begin
       if (quem_pediu = 'USUARIO') then begin
         quem_responde:='MAQUINA';
@@ -35,7 +35,7 @@ begin
         quem_responde:='USUARIO';
       end;
     end;
-    
+
     if (op = 1) then begin
       rodada_aumentar_peso_truco(rodada, quem_pediu);
       writeln(' ');
@@ -54,7 +54,7 @@ begin
       rodada_aumentar_peso_truco(rodada, quem_pediu);
       jogada_pedir_truco(rodada, inverte_jogador(quem_pediu));
     end;
-    
+
     delay(1500);
   end else begin
     writeln('O truco nao pode aumentar mais');
@@ -68,7 +68,7 @@ begin
   escolheu_op:= false;
   while(not escolheu_op ) do begin
     clrscr();
-    
+
     // Se for o usuario, mostra a view e da um read na opcao;
     if (jogador = 'USUARIO') then begin
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
@@ -77,8 +77,8 @@ begin
       // Se for a maquina, pede pra ela escolher a oção;
       op:=bot_escolhe_acao(carta, pontuacao, mao_maquina);
     end;
-    
-    if (((op = 4) or pontuacao_esta_mao_onze(pontuacao, inverte_jogador(jogador))) and (rodada_jogador_pode_pedir_truco(rodada, jogador)) and not (pontuacao_esta_mao_onze(pontuacao, jogador))) then begin
+
+    if ((op = 4) and (rodada_jogador_pode_pedir_truco(rodada, jogador))) then begin
       if (jogador = 'MAQUINA') then
       views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
       jogada_pedir_truco(rodada, jogador);
@@ -92,19 +92,19 @@ begin
       max_op_carta:= mao_usuario.qtd
       else
       max_op_carta:= mao_maquina.qtd;
-      
+
       if ((op >= 1) and (op <= max_op_carta)) then
       escolheu_op:= true; // Sai do loop
     end;
   end;
   jogada_escolhe_carta:= op;
-  
+
 end;
 
 function jogada_verifica_carta_mais_forte(cartaUsuario, cartaMaquina: tCarta):String;
 var poderCartaUsuario,poderCartaMaquina:integer;
 begin
-  
+
   poderCartaUsuario := carta_redefine_poder_sem_nipe_integer(cartaUsuario);
   poderCartaMaquina := carta_redefine_poder_sem_nipe_integer(cartaMaquina);
   if(poderCartaUsuario > poderCartaMaquina) then
@@ -122,7 +122,7 @@ begin
     jogada_verifica_se_teve_arregao:=true
     else
     jogada_verifica_se_teve_arregao:=false;
-    
+
   end;
 end;
 
@@ -130,35 +130,46 @@ end;
 function jogada_iniciar_jogada(var rodada:tRodada;var mao_usuario, mao_maquina:tListaCarta; pontuacao: tPontuacao):String;
 var op, i:integer;
 carta, cartaUsuario, cartaMaquina: tCarta;
-quemComeca, ganhador:string;
+quemComeca, ganhador, quem_esta_mao_onze:string;
 escolheu_op: boolean;
 begin
   op:=0;
   quemComeca := rodada_quem_comeca(rodada);
-  op:= jogada_escolhe_carta(quemComeca, rodada, mao_usuario, mao_maquina, pontuacao, carta);
-  
-  if not((jogada_verifica_se_teve_arregao(rodada))) then
-  if (quemComeca = 'USUARIO') then begin
-    cartaUsuario:= removerDaListaCartaPorPosicao(op, mao_usuario);
-    
-    op:= jogada_escolhe_carta('MAQUINA', rodada, mao_usuario, mao_maquina, pontuacao, cartaUsuario);
-    if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
-      cartaMaquina := removerDaListaCartaPorPosicao(op, mao_maquina);
-    end
-  end else begin
-    cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);
-    op:= jogada_escolhe_carta('USUARIO', rodada, mao_usuario, mao_maquina, pontuacao, cartaMaquina);
-    if NOT(jogada_verifica_se_teve_arregao(rodada)) then
-    cartaUsuario := removerDaListaCartaPorPosicao(op, mao_usuario);
+  quem_esta_mao_onze:= pontuacao_quem_esta_mao_onze(pontuacao);
+  if (quem_esta_mao_onze <> 'NINGUEM') then begin
+    if (quem_esta_mao_onze = 'USUARIO') then
+      views_menu_jogada(rodada, mao_usuario, pontuacao, carta);
+    jogada_pedir_truco(rodada, inverte_jogador(quem_esta_mao_onze));
   end;
-  
+  clrscr;
+
+  if not((jogada_verifica_se_teve_arregao(rodada))) then begin
+
+    op:= jogada_escolhe_carta(quemComeca, rodada, mao_usuario, mao_maquina, pontuacao, carta);
+
+    if not((jogada_verifica_se_teve_arregao(rodada))) then
+      if (quemComeca = 'USUARIO') then begin
+      cartaUsuario:= removerDaListaCartaPorPosicao(op, mao_usuario);
+
+      op:= jogada_escolhe_carta('MAQUINA', rodada, mao_usuario, mao_maquina, pontuacao, cartaUsuario);
+      if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
+        cartaMaquina := removerDaListaCartaPorPosicao(op, mao_maquina);
+      end
+    end else begin
+      cartaMaquina:= removerDaListaCartaPorPosicao(op, mao_maquina);
+      op:= jogada_escolhe_carta('USUARIO', rodada, mao_usuario, mao_maquina, pontuacao, cartaMaquina);
+      if NOT(jogada_verifica_se_teve_arregao(rodada)) then
+      cartaUsuario := removerDaListaCartaPorPosicao(op, mao_usuario);
+    end;
+
+  end;
   if NOT(jogada_verifica_se_teve_arregao(rodada)) then begin
     clrscr;
     views_mostra_carta_jogada(cartaUsuario, cartaMaquina);
     jogada_iniciar_jogada := jogada_verifica_carta_mais_forte(cartaUsuario,cartaMaquina);
   end else
   jogada_iniciar_jogada:= 'ARREGAO';
-  
+
   // Retorna o ganhador;
   // jogada_iniciar_jogada := jogada_verifica_op(op, mao_usuario, mao_maquina, pontuacao, rodada, quemComeca);
 end;
